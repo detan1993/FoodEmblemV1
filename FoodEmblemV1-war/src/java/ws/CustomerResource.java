@@ -54,13 +54,18 @@ public class CustomerResource {
            
             System.out.println("********** Login Attempt" + email + " password = " +  password);
             Customer information = customerEntityController.login(email, password);
-            return Response.status(Response.Status.OK).entity(new RetrieveCustomerAccountRsp(information.getEmail() , information.getName())).build();
+            
+            if(information == null)
+                return Response.status(Response.Status.OK).entity(new RetrieveCustomerAccountRsp(false)).build();
+ 
+            
+            return Response.status(Response.Status.OK).entity(new RetrieveCustomerAccountRsp(true)).build();
  
         }
         catch(Exception ex)
         {
-            System.err.println(ex.getMessage());
-            return Response.status(Response.Status.BAD_REQUEST).entity(new RetrieveCustomerAccountRsp("", "")).build();
+            ex.printStackTrace();
+            return Response.status(Response.Status.BAD_REQUEST).entity(new RetrieveCustomerAccountRsp(false)).build();
         }
     }
 

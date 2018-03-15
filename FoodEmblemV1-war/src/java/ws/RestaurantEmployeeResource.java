@@ -56,11 +56,15 @@ public class RestaurantEmployeeResource {
            
             System.out.println("********** Login Attempt" + email + " password = " +  password);
              RestaurantEmployee information = restaurantEmployeeController.login(email, password);
-            //System.out.println(information);
-            return Response.status(Response.Status.OK).entity(new RetrieveEmployeeAccountRsp(information.getEmail() , information.getFirstName() + " " + information.getLastName(), information.getRestaurant().getId().toString(), information.getGender(), information.getRestaurantRole())).build();
+             
+             if(information == null)
+                  return Response.status(Response.Status.OK).entity(new RetrieveEmployeeAccountRsp("" , "" , "" , 'N' , "")).build();
+             
+             //System.out.println(information);
+             return Response.status(Response.Status.OK).entity(new RetrieveEmployeeAccountRsp(information.getEmail() , information.getFirstName() + " " + information.getLastName(), information.getRestaurant().getId().toString(), information.getGender(), information.getRestaurantRole())).build();
  
         }
-        catch(Exception ex)
+        catch(Exception ex) 
         {
             System.err.println(ex.getMessage());
             return Response.status(Response.Status.BAD_REQUEST).entity(new RetrieveEmployeeAccountRsp("" , "" , "" , 'N' , "")).build();

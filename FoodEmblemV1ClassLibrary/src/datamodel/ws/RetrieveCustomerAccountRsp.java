@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
 @XmlType(name = "retrieveRestaurantSensorReq", propOrder = {
-    "email" , "fullName" 
+    "loginSuccess"
 })
 
 public class RetrieveCustomerAccountRsp implements Serializable {
@@ -26,49 +26,30 @@ public class RetrieveCustomerAccountRsp implements Serializable {
     private static final long serialVersionUID = 1L;
     
     //private boolean status;
-    private String email;
-    private String fullName;
+    private boolean loginSuccess;
+
 
     public RetrieveCustomerAccountRsp() {
     }
 
-    public RetrieveCustomerAccountRsp(String email, String fullName) {
-        this.email = email;
-        this.fullName = fullName;
+    public RetrieveCustomerAccountRsp(boolean loginSuccess) {
+        this.loginSuccess = loginSuccess;
     }
     
     
 
     /**
-     * @return the email
+     * @return the loginSuccess
      */
-    public String getEmail() {
-        return email;
+    public boolean getLoginSuccess() {
+        return loginSuccess;
     }
 
     /**
-     * @param email the email to set
+     * @param loginSuccess the loginSuccess to set
      */
-    public void setEmail(String email) {
-        this.email = email;
+    public void setLoginSuccess(boolean loginSuccess) {
+        this.loginSuccess = loginSuccess;
     }
-
-    /**
-     * @return the fullName
-     */
-    public String getFullName() {
-        return fullName;
-    }
-
-    /**
-     * @param fullName the fullName to set
-     */
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-    
-    
-
-   
     
 }
