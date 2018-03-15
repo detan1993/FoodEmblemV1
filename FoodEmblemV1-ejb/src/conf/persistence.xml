@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="FoodEmblemV1-ejbPU" transaction-type="JTA">
+    <jta-data-source>jdbc/FoodEmblemV1</jta-data-source>
+    <class>entity.Container</class>
+    <class>entity.Customer</class>
+    <class>entity.Dish</class>
+    <class>entity.EmblemAdmin</class>
+    <class>entity.Fridge</class>
+    <class>entity.Inventory</class>
+    <class>entity.OrderDish</class>
+    <class>entity.Promotion</class>
+    <class>entity.Reservation</class>
+    <class>entity.Restaurant</class>
+    <class>entity.RestaurantCustomerOrder</class>
+    <class>entity.RestaurantEmployee</class>
+    <class>entity.RestaurantSeating</class>
+    <class>entity.Sensor</class>
+    <class>entity.Supplier</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <properties>
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+    </properties>
+  </persistence-unit>
+</persistence>
