@@ -1,19 +1,22 @@
-# Build and Release Folders
-bin/
-bin-debug/
-bin-release/
-[Oo]bj/ # FlashDevelop obj
-[Bb]in/ # FlashDevelop bin
+#Ignore Build , dist and nbProject/private folder
+/build/
+/dist/
+/nbproject/private/
 
-# Other files and folders
-.settings/
+/FoodEmblemV1-ejb/build/
+/FoodEmblemV1-ejb/dist/
+/FoodEmblemV1-ejb/nbproject/private/
 
-# Executables
-*.swf
-*.air
-*.ipa
-*.apk
+/FoodEmblemV1ClassLibrary/build/
+/FoodEmblemV1ClassLibrary/dist/
+/FoodEmblemV1ClassLibrary/nbproject/private/
 
-# Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
-# should NOT be excluded as they contain compiler settings and other important
-# information for Eclipse / Flash Builder.
+
+/FoodEmblemV1-war/build/
+/FoodEmblemV1-war/dist/
+/FoodEmblemV1-war/nbproject/private/
+
+
+/FoodEmblemClient/build/
+/FoodEmblemClient/dist/
+/FoodEmblemClient/nbproject/private/
