@@ -6,8 +6,11 @@
 package ejb.session.stateless;
 
 import entity.Reservation;
+import java.util.List;
 
 
 public interface ReservationControllerLocal {
       public Reservation createReservation(Reservation newReservation , String customerId , Long seatId);
+      public List<Reservation>getCustomerReservations(String customerEmail, String status);
+      public List <String> getRestaurantNameFromReservation(List<Reservation>reservationList);
 }

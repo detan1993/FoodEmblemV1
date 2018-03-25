@@ -49,5 +49,11 @@ public class RestaurantController implements RestaurantControllerRemote, Restaur
         
     }
     
+    @Override
+    public Restaurant retrieveRestaurantById(int restid){
+        Query q = em.createQuery("SELECT r FROM Restaurant r WHERE r.id = :restid");
+        q.setParameter("restid", restid);
+        return (Restaurant)q.getSingleResult();
+    }
     
 }

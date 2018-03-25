@@ -5,9 +5,9 @@
  */
 package ws;
 
-import datamodel.ws.RetrieveCustomerAccountRsp;
 import datamodel.ws.RetrieveRestaurantsRsp;
 import ejb.session.stateless.RestaurantControllerLocal;
+import entity.Restaurant;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.InitialContext;
@@ -19,6 +19,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -58,6 +59,23 @@ public class RestaurantResource {
         catch(Exception ex)
         {
             System.err.println(ex.getMessage());
+            return Response.status(Response.Status.BAD_REQUEST).entity(new RetrieveRestaurantsRsp()).build();
+        }
+    }
+    
+    @GET
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("getRestaurantById/{restid}")
+    public Response retrieveRestaurantById(@PathParam("restid") int restid){
+        try {
+            Restaurant r = restaurantController.retrieveRestaurantById(restid);
+            System.out.print("Returning " + r.getName());
+            return Response.status(Response.Status.OK).entity(new RetrieveRestaurantsRsp(r)).build();
+        }
+        catch (Exception ex)
+        {
+            System.err.print(ex.toString());
             return Response.status(Response.Status.BAD_REQUEST).entity(new RetrieveRestaurantsRsp()).build();
         }
     }
