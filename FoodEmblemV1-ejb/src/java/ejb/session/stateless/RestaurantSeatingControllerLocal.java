@@ -14,5 +14,5 @@ public interface RestaurantSeatingControllerLocal {
      public List<RestaurantSeating> retrieveSeatsByRestaurantId(long restaurantId);
 
     public RestaurantSeating retrieveSeatById(long tableId);
-    
+    public RestaurantSeating retrieveAllocatedSeat(int restid, int pax);
 }

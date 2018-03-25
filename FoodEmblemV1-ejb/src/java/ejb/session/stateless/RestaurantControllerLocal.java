@@ -14,5 +14,5 @@ public interface RestaurantControllerLocal {
     public Restaurant createRestaurant(Restaurant newRestaurant);
 
     public List<Restaurant> retrieveRestaurant();
-    
+    public Restaurant retrieveRestaurantById(int id);
 }

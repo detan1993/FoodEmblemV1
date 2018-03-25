@@ -50,7 +50,7 @@ public class RetrieveRestaurantFridgeRsp implements Serializable {
     }
 
      
-     
-     
-     
+    
+    
+    
 }

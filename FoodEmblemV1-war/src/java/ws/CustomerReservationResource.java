@@ -7,9 +7,13 @@ package ws;
 
 import datamodel.ws.ReservationReq;
 import datamodel.ws.ReservationRsp;
+import datamodel.ws.RetrieveCustomerReservationsRsp;
 import ejb.session.stateless.ReservationControllerLocal;
+import ejb.session.stateless.RestaurantSeatingControllerLocal;
 import entity.Reservation;
+import entity.RestaurantSeating;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.InitialContext;
@@ -35,7 +39,8 @@ import javax.xml.bind.JAXBElement;
 public class CustomerReservationResource {
 
     ReservationControllerLocal reservationController = lookupReservationControllerLocal();
-
+RestaurantSeatingControllerLocal restaurantseatingcontroller = lookupRestaurantSeatingControllerLocal();
+    
     @Context
     private UriInfo context;
     
@@ -51,26 +56,36 @@ public class CustomerReservationResource {
     @GET
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("getReservation/{email}/")
-    public Response retrieveReservation(@PathParam("email") String email)
-    {
-        
-        //to do later. This is gettting reservation by customer ID
-       /* try
-        {
-           
-            System.out.println("********** Login Attempt" + email + " password = " +  password);
-             RestaurantEmployee information = restaurantEmployeeController.login(email, password);
-            //System.out.println(information);
-            return Response.status(Response.Status.OK).entity(new RetrieveEmployeeAccountRsp(information.getEmail() , information.getFirstName() + " " + information.getLastName(), information.getRestaurant().getId().toString(), information.getGender(), information.getRestaurantRole())).build();
- 
-        }
-        catch(Exception ex)
-        {
+    @Path("getReservations/{email}/{status}")
+    public Response retrieveReservation(@PathParam("email") String email, @PathParam("status") String status)
+    { 
+        try {
+        List<Reservation>customerreservations = reservationController.getCustomerReservations(email,status);
+        List<String>restNames = reservationController.getRestaurantNameFromReservation(customerreservations);
+         System.out.println("********** Calling retrieveReservation method. List size for " + email + " is " + customerreservations.size());
+    
+         return Response.status(Response.Status.OK).entity(new RetrieveCustomerReservationsRsp(customerreservations,restNames)).build();
+        } 
+        catch (Exception ex){
             System.err.println(ex.getMessage());
-            return Response.status(Response.Status.BAD_REQUEST).entity(new RetrieveEmployeeAccountRsp("" , "" , "" , 'N' , "")).build();
-        }*/
-        return null;
+            return Response.status(Response.Status.BAD_REQUEST).entity(new RetrieveCustomerReservationsRsp(null,null)).build();
+        }
+    }
+    
+    @GET
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("retrieveAllocatedSeat/{restid}/{pax}")
+    public Response retrieveAllocatedSeat(@PathParam("restid") int restid, @PathParam("pax")int pax){
+        try {
+            RestaurantSeating rs = restaurantseatingcontroller.retrieveAllocatedSeat(restid, pax);
+            System.out.println("Table returned: "+rs.getTableNo());
+            return Response.status(Response.Status.OK).entity(new RetrieveCustomerReservationsRsp(rs)).build();
+        }
+        catch (Exception ex){
+             System.err.println(ex.getMessage());
+              return Response.status(Response.Status.BAD_REQUEST).entity(new RetrieveCustomerReservationsRsp(null)).build();
+        }
     }
     
     
@@ -84,7 +99,7 @@ public class CustomerReservationResource {
           {
             try
             {
-                              
+                
                 ReservationReq reservationReq = jaxbReservationReq.getValue();
                 
                 String customerId = reservationReq.getEmail();
@@ -111,6 +126,16 @@ public class CustomerReservationResource {
         try {
             javax.naming.Context c = new InitialContext();
             return (ReservationControllerLocal) c.lookup("java:global/FoodEmblemV1/FoodEmblemV1-ejb/ReservationController!ejb.session.stateless.ReservationControllerLocal");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+    
+    private RestaurantSeatingControllerLocal lookupRestaurantSeatingControllerLocal(){
+          try {
+            javax.naming.Context c = new InitialContext();
+            return (RestaurantSeatingControllerLocal) c.lookup("java:global/FoodEmblemV1/FoodEmblemV1-ejb/RestaurantSeatingController!ejb.session.stateless.RestaurantSeatingControllerLocal");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

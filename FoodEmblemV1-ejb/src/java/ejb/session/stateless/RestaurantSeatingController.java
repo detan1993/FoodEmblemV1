@@ -42,7 +42,7 @@ public class RestaurantSeatingController implements RestaurantSeatingControllerR
         em.flush();
         em.refresh(newSeat);
         return newSeat;
-    }
+    } 
     
     @Override
     public RestaurantSeating retrieveSeatById(long tableId)
@@ -52,6 +52,17 @@ public class RestaurantSeatingController implements RestaurantSeatingControllerR
         
     }
     
+    @Override
+    public RestaurantSeating retrieveAllocatedSeat(int restid, int pax){
+        Query q = em.createQuery("SELECT rs FROM Restaurant r, RestaurantSeating rs WHERE r.id = :restid AND :pax <= rs.seatCapacity AND (rs.id NOT IN (SELECT rer.restSeating.id FROM Reservation rer))");
+        q.setParameter("restid", restid);
+        q.setParameter("pax", pax); 
+        List listofavailableseatings = q.getResultList();
+        if (listofavailableseatings.size() == 0){
+            return null;
+        }
+        return (RestaurantSeating)listofavailableseatings.get(0);
+    }
     
     @Override
     public List<RestaurantSeating> retrieveSeatsByRestaurantId(long restaurantId)
@@ -62,7 +73,7 @@ public class RestaurantSeatingController implements RestaurantSeatingControllerR
         List<RestaurantSeating> seat = new ArrayList<>();
        
         try{
-            
+              
              Restaurant result = (Restaurant) query.getSingleResult();
              for(int i = 0; i< result.getSensors().size(); i++)
              {
