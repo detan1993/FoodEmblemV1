@@ -7,6 +7,7 @@ package datamodel.ws;
 
 import entity.Reservation;
 import java.io.Serializable;
+import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -26,7 +27,8 @@ public class ReservationRsp  implements Serializable  {
 
     public ReservationRsp() {
     }
-
+    
+    
     public ReservationRsp(Reservation reservation) {
         this.reservation = reservation;
     }
@@ -38,6 +40,7 @@ public class ReservationRsp  implements Serializable  {
         return reservation;
     }
 
+   
     /**
      * @param reservation the reservation to set
      */
