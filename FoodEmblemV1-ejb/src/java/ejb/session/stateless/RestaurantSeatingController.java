@@ -54,7 +54,8 @@ public class RestaurantSeatingController implements RestaurantSeatingControllerR
     
     @Override
     public RestaurantSeating retrieveAllocatedSeat(int restid, int pax){
-        Query q = em.createQuery("SELECT rs FROM Restaurant r, RestaurantSeating rs WHERE r.id = :restid AND :pax <= rs.seatCapacity AND (rs.id NOT IN (SELECT rer.restSeating.id FROM Reservation rer))");
+        //Query q = em.createQuery("SELECT rs FROM Restaurant r, RestaurantSeating rs WHERE r.id = :restid AND :pax <= rs.seatCapacity AND (rs.id NOT IN (SELECT rer.restSeating.id FROM Reservation rer))");
+        Query q = em.createQuery("SELECT rs FROM Restaurant r JOIN r.sensors s JOIN s.restaurantSeating rs WHERE r.id = :restid AND :pax <= rs.seatCapacity AND (rs NOT IN (SELECT rer.restSeating FROM Reservation rer) OR rs IN (SELECT rer.restSeating FROM Reservation rer WHERE rer.status = 'Inactive'))");
         q.setParameter("restid", restid);
         q.setParameter("pax", pax); 
         List listofavailableseatings = q.getResultList();

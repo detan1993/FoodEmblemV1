@@ -81,5 +81,9 @@ public class RetrieveCustomerReservationsRsp  implements Serializable  {
     public void setRestaurantSeating(RestaurantSeating restaurantSeating) {
         this.restaurantSeating = restaurantSeating;
     }
+
+    /**
+     * @return the hasReservation
+     */
     
 }

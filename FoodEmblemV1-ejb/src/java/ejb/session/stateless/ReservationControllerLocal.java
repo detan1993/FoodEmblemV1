@@ -13,4 +13,5 @@ public interface ReservationControllerLocal {
       public Reservation createReservation(Reservation newReservation , String customerId , Long seatId);
       public List<Reservation>getCustomerReservations(String customerEmail, String status);
       public List <String> getRestaurantNameFromReservation(List<Reservation>reservationList);
+      public Boolean checkCustomerHasReservation(String email);
 }

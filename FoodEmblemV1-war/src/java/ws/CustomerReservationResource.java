@@ -5,6 +5,7 @@
  */
 package ws;
 
+import datamodel.ws.CheckHasReservation;
 import datamodel.ws.ReservationReq;
 import datamodel.ws.ReservationRsp;
 import datamodel.ws.RetrieveCustomerReservationsRsp;
@@ -63,7 +64,7 @@ RestaurantSeatingControllerLocal restaurantseatingcontroller = lookupRestaurantS
         List<Reservation>customerreservations = reservationController.getCustomerReservations(email,status);
         List<String>restNames = reservationController.getRestaurantNameFromReservation(customerreservations);
          System.out.println("********** Calling retrieveReservation method. List size for " + email + " is " + customerreservations.size());
-    
+     
          return Response.status(Response.Status.OK).entity(new RetrieveCustomerReservationsRsp(customerreservations,restNames)).build();
         } 
         catch (Exception ex){
@@ -88,6 +89,20 @@ RestaurantSeatingControllerLocal restaurantseatingcontroller = lookupRestaurantS
         }
     }
     
+    @GET
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("checkHasReservation/{email}")
+    public Response checkHasReservation(@PathParam("email")String email){
+        try {
+            Boolean status = reservationController.checkCustomerHasReservation(email);
+            return Response.status(Response.Status.OK).entity(new CheckHasReservation(status)).build();
+        }
+        catch (Exception ex){
+            System.err.println(ex.getMessage());
+            return Response.status(Response.Status.BAD_REQUEST).entity(new CheckHasReservation(null)).build();
+        }
+    }
     
     @PUT
     @Consumes({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
