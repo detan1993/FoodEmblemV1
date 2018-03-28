@@ -14,5 +14,6 @@ public interface SensorControllerLocal {
     public Sensor createSensor(Sensor newSensor);
 
     public List<Sensor> retrieveSensor(long restaurantId);
+        public void updateFridgeTemp(Long restaurantId, Long fridgeId, double tempValue);
     
 }

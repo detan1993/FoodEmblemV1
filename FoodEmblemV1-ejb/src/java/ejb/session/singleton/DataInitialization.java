@@ -71,11 +71,6 @@ public class DataInitialization {
     private CustomerEntityControllerLocal customerEntityControllerLocal;
     
     
-    
-    
-    
-    
-    
 
     @PersistenceContext(unitName = "FoodEmblemV1-ejbPU")
     private EntityManager em;

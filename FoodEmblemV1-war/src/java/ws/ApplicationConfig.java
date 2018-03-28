@@ -36,6 +36,7 @@ public class ApplicationConfig extends Application {
         resources.add(ws.PromotionResource.class);
         resources.add(ws.RestaurantDishResource.class);
         resources.add(ws.RestaurantEmployeeResource.class);
+        resources.add(ws.RestaurantInventoryBySupplierResource.class);
         resources.add(ws.RestaurantResource.class);
         resources.add(ws.SensorResource.class);
     }

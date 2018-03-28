@@ -11,8 +11,9 @@ import java.util.List;
 
 public interface RestaurantControllerLocal {
 
-    public Restaurant createRestaurant(Restaurant newRestaurant);
+       public Restaurant createRestaurant(Restaurant newRestaurant);
 
     public List<Restaurant> retrieveRestaurant();
+    public Restaurant retrieveRestaurantById(int id);
     
 }

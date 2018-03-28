@@ -5,6 +5,7 @@
  */
 package ejb.session.stateless;
 
+import entity.Fridge;
 import entity.Restaurant;
 import entity.Sensor;
 import java.util.List;
@@ -62,6 +63,31 @@ public class SensorController implements SensorControllerRemote, SensorControlle
            return null;
        }
       
+    }
+    
+    
+    @Override
+    public void updateFridgeTemp(Long restaurantId , Long fridgeId , double tempValue)
+    {
+        
+        System.out.println("**************** inside update fridge Temp");
+        List<Sensor> restSensors = retrieveSensor(restaurantId);
+        for(Sensor s : restSensors)
+        {
+            Fridge f = s.getFridge();
+            if(f != null)
+            {
+                System.out.println("FridgeId is " + f.getId());
+                if(f.getId() == fridgeId)
+                {
+                    //s.getFridge().setTemperature(tempVl);
+                    f.setTemperature(tempValue);
+                    em.flush();
+                    break;
+                }
+            }
+        }
+       
     }
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")

@@ -9,6 +9,7 @@ import datamodel.ws.RetrieveRestaurantContainerRsp;
 import datamodel.ws.RetrieveRestaurantFridgeRsp;
 import datamodel.ws.RetrieveRestaurantSeatingRsp;
 import datamodel.ws.RetrieveRestaurantSensorRsp;
+import datamodel.ws.UpdateRestaurantFridgeTempReq;
 import ejb.session.stateless.ContainerControllerLocal;
 import ejb.session.stateless.FridgeControllerLocal;
 import ejb.session.stateless.RestaurantSeatingControllerLocal;
@@ -28,6 +29,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import javax.xml.bind.JAXBElement;
 
 /**
  * REST Web Service
@@ -165,6 +167,38 @@ public class SensorResource {
            // return Response.status(Status.BAD_REQUEST).entity(new RetrieveRestaurantSeatingRsp(null)).build();
         }
     }
+    
+    @PUT
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("updateRestaurantFridgeTemp")
+    public Response updateRestaurantFridge(JAXBElement<UpdateRestaurantFridgeTempReq> jaxbUpdateTempReq)
+    {
+       
+        if((jaxbUpdateTempReq != null) && (jaxbUpdateTempReq.getValue() != null))
+        {
+            try
+            {
+                System.err.println("********** updateRestaurantFridge");
+                UpdateRestaurantFridgeTempReq request = jaxbUpdateTempReq.getValue();
+                
+                sensorController.updateFridgeTemp(request.getRestaurantId() , request.getFridgeId() , request.getTempValue());
+                
+                return Response.status(Response.Status.OK).build();
+            }
+            catch(Exception ex)
+            {
+                System.out.println("error" + ex);
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+            }
+        }
+        else
+        {
+            return Response.status(Response.Status.BAD_REQUEST).entity("Invalid register request").build();
+        }
+    }
+  
+    
     
     
 
