@@ -6,11 +6,13 @@
 package ejb.session.stateless;
 
 import entity.Restaurant;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -54,6 +56,34 @@ public class RestaurantController implements RestaurantControllerRemote, Restaur
         Query q = em.createQuery("SELECT r FROM Restaurant r WHERE r.id = :restid");
         q.setParameter("restid", restid);
         return (Restaurant)q.getSingleResult();
+    }
+    
+    @Override
+    public List<Restaurant> retrievePartnerRestaurant(List<String> restApiKeys)
+    {
+        Query query;
+        List<Restaurant> partnerRestaurants  = new ArrayList<>();
+        for(String restKey : restApiKeys)
+        {
+            
+            query = em.createQuery("SELECT r FROM Restaurant r WHERE r.apiKey =:restApiKey");
+            query.setParameter("restApiKey", restKey);
+            
+            try{
+               
+                Restaurant information = (Restaurant)query.getSingleResult();
+                System.out.println("************ REST INFO: " + information.getName());
+                partnerRestaurants.add(information);
+                
+            }
+            catch(NoResultException  Ex)
+            {
+                System.err.println("No such record");                  
+            }
+        }
+        
+        return partnerRestaurants;
+        
     }
     
     

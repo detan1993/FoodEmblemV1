@@ -11,4 +11,7 @@ import java.util.List;
 public interface RestaurantControllerRemote {
      public Restaurant createRestaurant(Restaurant newRestaurant);
    public List<Restaurant> retrieveRestaurant();    
+     public List<Restaurant> retrievePartnerRestaurant(List<String> restApiKeys);
+  
+   
 }

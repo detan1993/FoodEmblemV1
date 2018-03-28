@@ -66,14 +66,12 @@ public class RestaurantInventoryBySupplierResource {
                     System.out.println("*********************" + a);
               
                 System.err.println("********** Calling Partner Restaurant method");
-             /*   List<Restaurant> partnerRestInformation = restaurantController.retrievePartnerRestaurant(partnerRestaurantKeys);
+                List<Restaurant> partnerRestInformation = restaurantController.retrievePartnerRestaurant(partnerRestaurantKeys);
                 
                 if(!partnerRestInformation.isEmpty())               
                 return Response.status(Response.Status.OK).entity(new RetrieveRestaurantInventoriesRsp(partnerRestInformation)).build();
                 else
-                    return Response.status(Response.Status.OK).entity(new RetrieveRestaurantInventoriesRsp()).build();  //this is suppose to return other messahe. Not complete yet.*/
-             
-             return null;
+                    return Response.status(Response.Status.OK).entity(new RetrieveRestaurantInventoriesRsp()).build();  //this is suppose to return other messahe. Not complete yet.
                          
             }
             catch(Exception ex)
