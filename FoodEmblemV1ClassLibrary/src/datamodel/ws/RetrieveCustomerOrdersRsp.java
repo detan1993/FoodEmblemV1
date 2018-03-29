@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlType;
  * @author JiongYi
  */
 @XmlRootElement
-@XmlType(name = "RetrieveCustomerOrdersRsp", propOrder = {
+@XmlType(name = "retrieveCustomerOrdersRsp", propOrder = {
     "customerOrders"
 })
 public class RetrieveCustomerOrdersRsp implements Serializable {

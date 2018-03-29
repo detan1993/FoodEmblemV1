@@ -28,7 +28,7 @@ public class Promotion implements Serializable {
     private Long id;
     
     private double promotionPercentage;
-    
+   
     @Temporal(TemporalType.TIMESTAMP)
     private Date startDateTime;
     @Temporal(TemporalType.TIMESTAMP)
@@ -37,10 +37,14 @@ public class Promotion implements Serializable {
     @ManyToOne
     private Restaurant restaurant;
 
+    private String description;
+    
     public Promotion() {
+       
     }
 
-    public Promotion(double promotionPercentage, Date startDateTime, Date endDateTime, Restaurant restaurant) {
+    public Promotion(String description, double promotionPercentage, Date startDateTime, Date endDateTime, Restaurant restaurant) { 
+        this.description = description;
         this.promotionPercentage = promotionPercentage;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
@@ -137,6 +141,20 @@ public class Promotion implements Serializable {
      */
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
+    }
+
+    /**
+     * @return the description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * @param description the description to set
+     */
+    public void setDescription(String description) {
+        this.description = description;
     }
     
 }

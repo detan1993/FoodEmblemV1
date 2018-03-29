@@ -120,11 +120,11 @@ public class CustomerEntityController implements CustomerEntityControllerRemote,
                 int quantity = jsondish.getQty();
                 long dishid = jsondish.getId();
                 q = em.createQuery("SELECT d FROM Dish d WHERE d.id = :dishid");
-                q.setParameter("dishid", dishid);
-                Dish dish = (Dish)q.getSingleResult();
+                q.setParameter("dishid", dishid); 
+                Dish dish = (Dish)q.getSingleResult(); 
                 orderdish.setRestCustOrder(restcustorder);
                 orderdish.setDish(dish);
-                orderdish.setQty(quantity);
+                orderdish.setQty(quantity);  
                 em.persist(orderdish);
                 restcustorder.getOrderDishes().add(orderdish);
                 em.flush();
@@ -138,8 +138,8 @@ public class CustomerEntityController implements CustomerEntityControllerRemote,
              em.refresh(restcustorder);
              return restcustorder;
          }
-         catch (Exception ex){
-             ex.printStackTrace();
+         catch (Exception ex){ 
+             ex.printStackTrace();  
          }
          return restcustorder;
     }

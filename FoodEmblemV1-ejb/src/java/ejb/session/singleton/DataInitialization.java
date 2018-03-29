@@ -9,6 +9,7 @@ import ejb.session.stateless.ContainerControllerLocal;
 import ejb.session.stateless.CustomerEntityControllerLocal;
 import ejb.session.stateless.FridgeControllerLocal;
 import ejb.session.stateless.InventoryControllerLocal;
+import ejb.session.stateless.PromotionControllerLocal;
 import ejb.session.stateless.RestaurantControllerLocal;
 import ejb.session.stateless.RestaurantDishControllerLocal;
 import ejb.session.stateless.RestaurantEmployeeControllerLocal;
@@ -19,11 +20,13 @@ import entity.Customer;
 import entity.Dish;
 import entity.Fridge;
 import entity.Inventory;
+import entity.Promotion;
 import entity.Restaurant;
 import entity.RestaurantEmployee;
 import entity.RestaurantSeating;
 import entity.Sensor;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -70,7 +73,8 @@ public class DataInitialization {
     @EJB(name = "CustomerEntityControllerLocal")
     private CustomerEntityControllerLocal customerEntityControllerLocal;
     
-    
+    @EJB(name = "PromotionControllerLocal")
+    private PromotionControllerLocal promotionControllerLocal;
 
     @PersistenceContext(unitName = "FoodEmblemV1-ejbPU")
     private EntityManager em;
@@ -141,25 +145,24 @@ public class DataInitialization {
       Inventory newInventory1 = inventoryControllerLocal.createInventory(new Inventory("Salmon" , 0.20 , 5.0));
       Inventory newInventory2 = inventoryControllerLocal.createInventory(new Inventory("Cabbage" , 0.30, 5.0));
       
-      
-      
+     
       Container newContainer1 = containerControllerLocal.createContainer(new Container(0.5, newInventory1));
       Container newContainer2 = containerControllerLocal.createContainer(new Container(0.5, newInventory2));
       
       
       List<Sensor> sensors = new ArrayList<>();
-      Sensor newSensor1 = sensorControllerLocal.createSensor(new Sensor("Beacons" , 10.0 , newSeat1));
-      Sensor newSensor2 = sensorControllerLocal.createSensor(new Sensor("Beacons" , 10.0 , newSeat2));
+      Sensor newSensor1 = sensorControllerLocal.createSensor(new Sensor("Beacons" , 10.0 , newSeat1, "32132", "31111"));
+      Sensor newSensor2 = sensorControllerLocal.createSensor(new Sensor("Beacons" , 10.0 , newSeat2, "21187","39875"));
       
-      Sensor newSensor3 = sensorControllerLocal.createSensor(new Sensor("temperatureSensor" , 0.0 , newFridge));
-      Sensor newSensor4 = sensorControllerLocal.createSensor(new Sensor("LoadSensor" , 0.0, newContainer1));
-      Sensor newSensor5 = sensorControllerLocal.createSensor(new Sensor("LoadSensor" , 0.0, newContainer2));
+      Sensor newSensor3 = sensorControllerLocal.createSensor(new Sensor("temperatureSensor" , 0.0 , newFridge, "", ""));
+      Sensor newSensor4 = sensorControllerLocal.createSensor(new Sensor("LoadSensor" , 0.0, newContainer1, "", ""));
+      Sensor newSensor5 = sensorControllerLocal.createSensor(new Sensor("LoadSensor" , 0.0, newContainer2, "", ""));
       
       sensors.add(newSensor1);
       sensors.add(newSensor2);
-       sensors.add(newSensor3);
-       sensors.add(newSensor4);
-       sensors.add(newSensor5);
+      sensors.add(newSensor3);
+      sensors.add(newSensor4);
+      sensors.add(newSensor5);
 
       
       List<Dish> dishes = new ArrayList<>();
@@ -171,11 +174,13 @@ public class DataInitialization {
       dishes.add(newDish3);
       
       Restaurant newRest = restaurantControllerLocal.createRestaurant(new Restaurant("Restaurant A" , "65167812" , "Restaurant A Address " ,  "343231" , "restA@gmail.com" , "122453tedgyr@h9" , sensors , dishes));
-      
-      
+       //creating promotion for newRest
+      String desc = "Enjoy 30% for all dinner items only from 8pm to 10pm!";
+      Promotion promotion = promotionControllerLocal.createPromotion(new Promotion(desc,30.00,new Date(),new Date(),newRest ));
+      Sensor promoSensor = sensorControllerLocal.createSensor(new Sensor("Promotion" , 15.0 , "47712", "24497"));
       RestaurantEmployee newEmployee = restaurantEmployeeControllerLocal.createEmployee(new RestaurantEmployee("Emp A" , "Ln A" , 'M' , "EmpA@RestA.com" , "12345678" , "Manager" , newRest));
       RestaurantEmployee newEmployee2 = restaurantEmployeeControllerLocal.createEmployee(new RestaurantEmployee("Emp B", "Ln B" , 'F', "EmpB@RestA.com" , "12345678" , "Kicthen" , newRest ));
-      
+      newRest.getSensors().add(promoSensor);
       
       
      // System.out.println("New Employee ID " + newEmployee.getId() + " and " + newEmployee2.getId() + " are created");
