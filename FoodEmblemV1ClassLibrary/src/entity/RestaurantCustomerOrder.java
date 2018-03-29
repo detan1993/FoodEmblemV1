@@ -31,6 +31,8 @@ public class RestaurantCustomerOrder implements Serializable {
     
     private double totalPrice;
     
+    private boolean isCooked;
+    
     @Temporal(TemporalType.TIMESTAMP)
     private Date orderTime;
     
@@ -41,9 +43,11 @@ public class RestaurantCustomerOrder implements Serializable {
     private Promotion promotion;
 
     public RestaurantCustomerOrder() {
+        this.isCooked = false;
     }
 
     public RestaurantCustomerOrder(double totalPrice, Date orderTime, List<OrderDish> orderDishes, Promotion promotion) {
+        this();
         this.totalPrice = totalPrice;
         this.orderTime = orderTime;
         this.orderDishes = orderDishes;
@@ -139,6 +143,20 @@ public class RestaurantCustomerOrder implements Serializable {
      */
     public void setPromotion(Promotion promotion) {
         this.promotion = promotion;
+    }
+
+    /**
+     * @return the status
+     */
+    public boolean getisCooked() {
+        return isCooked;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setisCooked(boolean isCooked) {
+        this.isCooked = isCooked;
     }
     
 }

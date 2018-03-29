@@ -5,6 +5,7 @@
  */
 package ejb.session.stateless;
 
+import entity.OrderDish;
 import entity.Restaurant;
 import java.util.List;
 
@@ -17,5 +18,5 @@ public interface RestaurantControllerLocal {
     public Restaurant retrieveRestaurantById(int id);
 
     public List<Restaurant> retrievePartnerRestaurant(List<String> restApiKeys);
-    
+     public List<OrderDish>retrieveCustomerOrders(int restaurantId);
 }

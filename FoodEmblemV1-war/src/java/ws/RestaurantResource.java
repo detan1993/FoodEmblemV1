@@ -5,9 +5,12 @@
  */
 package ws;
 
+import datamodel.ws.RetrieveCustomerOrdersRsp;
 import datamodel.ws.RetrieveRestaurantsRsp;
 import ejb.session.stateless.RestaurantControllerLocal;
+import entity.OrderDish;
 import entity.Restaurant;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.InitialContext;
@@ -60,6 +63,23 @@ public class RestaurantResource {
         {
             System.err.println(ex.getMessage());
             return Response.status(Response.Status.BAD_REQUEST).entity(new RetrieveRestaurantsRsp()).build();
+        }
+    }
+    
+    @GET
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("retrieveCustomerOrders/{restid}")
+    public Response retrieveCustomerOrders(@PathParam("restid")int restid){
+        try {
+              System.out.println("********** retrieving restaurant orders ********");
+              List<OrderDish>orderdishes = restaurantController.retrieveCustomerOrders(restid);
+               System.out.println("Size of order dishes is " + orderdishes.size());
+              return Response.status(Response.Status.OK).entity(new RetrieveCustomerOrdersRsp(orderdishes)).build();
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+             return Response.status(Response.Status.BAD_REQUEST).entity(new RetrieveCustomerOrdersRsp(null)).build();
         }
     }
     

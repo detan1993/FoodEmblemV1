@@ -5,6 +5,7 @@
  */
 package ejb.session.stateless;
 
+import entity.OrderDish;
 import entity.Restaurant;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +58,16 @@ public class RestaurantController implements RestaurantControllerRemote, Restaur
         q.setParameter("restid", restid);
         return (Restaurant)q.getSingleResult();
     }
+    
+     @Override
+     public List<OrderDish>retrieveCustomerOrders(int restaurantId){
+         Query q = em.createQuery("SELECT od FROM Restaurant r JOIN r.sensors s JOIN s.restaurantSeating rs JOIN rs.reservations rer JOIN rer.restCustOrders co JOIN co.orderDishes od  WHERE r.id = :restid AND rer.status = :status AND co.isCooked = :orderstatus");
+         q.setParameter("restid", restaurantId);
+         q.setParameter("status", "Active");
+         q.setParameter("orderstatus", false);
+         List<OrderDish>orderdishes = q.getResultList();
+         return orderdishes;
+     }
     
     @Override
     public List<Restaurant> retrievePartnerRestaurant(List<String> restApiKeys)

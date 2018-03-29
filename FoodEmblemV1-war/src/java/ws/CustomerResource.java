@@ -5,9 +5,15 @@
  */
 package ws;
 
+import datamodel.ws.CustomerOrderReq;
+import datamodel.ws.CustomerOrderRsp;
 import datamodel.ws.RetrieveCustomerAccountRsp;
 import ejb.session.stateless.CustomerEntityControllerLocal;
 import entity.Customer;
+import entity.OrderDish;
+import entity.Reservation;
+import entity.RestaurantCustomerOrder;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.InitialContext;
@@ -22,6 +28,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.xml.bind.JAXBElement;
 
 /**
  * REST Web Service
@@ -42,7 +49,8 @@ public class CustomerResource {
      */
     public CustomerResource() {
     }
-
+    
+    
     @GET
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
@@ -66,6 +74,37 @@ public class CustomerResource {
         {
             ex.printStackTrace();
             return Response.status(Response.Status.BAD_REQUEST).entity(new RetrieveCustomerAccountRsp(false)).build();
+        }
+    }
+    
+    @PUT
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("AddCustomerOrder")
+    public Response addCustomerOrder(JAXBElement<CustomerOrderReq> jaxbaddCustomerOrderReq)
+    {
+         
+          if((jaxbaddCustomerOrderReq != null) && (jaxbaddCustomerOrderReq.getValue() != null))
+          {
+            try
+            {
+                
+                CustomerOrderReq custOrderReq = jaxbaddCustomerOrderReq.getValue();
+                String email = custOrderReq.getEmail();
+                List<OrderDish>orderdishes = custOrderReq.getOrderdishes();
+                Double total = custOrderReq.getTotal();
+                RestaurantCustomerOrder restcustorder = customerEntityController.addCustomerOrder(email, orderdishes, total);             
+                System.out.println("New Customer Order ID = " + restcustorder.getId());         
+                return Response.status(Response.Status.OK).entity(new CustomerOrderRsp(restcustorder)).build(); 
+            }
+            catch (Exception ex){
+                 ex.printStackTrace();
+                 return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+            }
+          }
+          else
+        {
+            return Response.status(Response.Status.BAD_REQUEST).entity("Invalid register request").build();
         }
     }
 
