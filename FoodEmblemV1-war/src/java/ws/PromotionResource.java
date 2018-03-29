@@ -63,9 +63,25 @@ public class PromotionResource {
         catch(Exception ex)
         {
             System.err.println(ex.getMessage());
-            return Response.status(Response.Status.BAD_REQUEST).entity(new RetrieveRestaurantPromotionRsp(null)).build();
+            return Response.status(Response.Status.BAD_REQUEST).entity(new RetrieveRestaurantPromotionRsp()).build();
         }
     }
+    
+    @GET
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("retrieveRestaurantPromoFromBeacon/{major}/{minor}")
+     public Response retrieveRestaurantPromoFromBeacon(@PathParam("major") int major, @PathParam("minor") int minor){
+         try{
+             Promotion promo = promotionController.retrieveRestaurantPromoFromBeacon(major, minor);
+             System.out.print("Promo desc is " + promo.getDescription());
+             return Response.status(Response.Status.OK).entity(new RetrieveRestaurantPromotionRsp(promo)).build();
+         }
+         catch (Exception ex){
+             ex.printStackTrace();
+              return Response.status(Response.Status.BAD_REQUEST).entity(new RetrieveRestaurantPromotionRsp()).build();
+         }
+     }
     /**
      * PUT method for updating or creating an instance of PromotionResource
      * @param content representation for the resource

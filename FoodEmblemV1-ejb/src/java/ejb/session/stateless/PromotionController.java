@@ -47,6 +47,15 @@ public class PromotionController implements PromotionControllerRemote, Promotion
     }
     
     @Override
+    public Promotion retrieveRestaurantPromoFromBeacon(int major, int minor){
+        Query q = em.createQuery("SELECT p FROM Promotion p JOIN p.restaurant r JOIN r.sensors s WHERE s.major = :major AND s.minor = :minor");
+        q.setParameter("major", major);
+        q.setParameter("minor", minor);
+        Promotion p = (Promotion)q.getSingleResult();
+        return p;
+    }
+    
+    @Override
     public List<Promotion> retrievePromotionsByRestaurantId(long restaurantId)
     {
         Query query = em.createQuery("SELECT p FROM Promotion p WHERE p.restaurant.id =:restaurantId");

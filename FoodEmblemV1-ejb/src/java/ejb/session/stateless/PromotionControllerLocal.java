@@ -13,4 +13,5 @@ public interface PromotionControllerLocal {
       public Promotion createPromotion(Promotion newPromotion);
 
     public List<Promotion> retrievePromotionsByRestaurantId(long restaurantId);
+    public Promotion retrieveRestaurantPromoFromBeacon(int major, int minor);
 }

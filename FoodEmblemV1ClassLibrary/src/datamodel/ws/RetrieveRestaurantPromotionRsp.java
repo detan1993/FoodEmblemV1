@@ -25,10 +25,15 @@ public class RetrieveRestaurantPromotionRsp implements Serializable {
         private static final long serialVersionUID = 1L;
     
      private List<Promotion> promotions;
+     private Promotion promotion;
 
     public RetrieveRestaurantPromotionRsp() {
     }
 
+    public RetrieveRestaurantPromotionRsp(Promotion promotion){
+        this.promotion = promotion;
+    }
+    
     public RetrieveRestaurantPromotionRsp(List<Promotion> promotions) {
         this.promotions = promotions;
     }
@@ -45,5 +50,19 @@ public class RetrieveRestaurantPromotionRsp implements Serializable {
      */
     public void setPromotions(List<Promotion> promotions) {
         this.promotions = promotions;
+    }
+
+    /**
+     * @return the promotion
+     */
+    public Promotion getPromotion() {
+        return promotion;
+    }
+
+    /**
+     * @param promotion the promotion to set
+     */
+    public void setPromotion(Promotion promotion) {
+        this.promotion = promotion;
     }
 }

@@ -29,8 +29,8 @@ public class Sensor implements Serializable {
     private Container container;
     @OneToOne
     private Fridge fridge;
-    private String major;
-    private String minor;
+    private int major;
+    private int minor;
     @OneToOne
     private RestaurantSeating restaurantSeating;
 
@@ -38,7 +38,7 @@ public class Sensor implements Serializable {
         
     }
 
-    public Sensor(String sensorType, double sensorRange, RestaurantSeating restaurantSeating, String major, String minor) {
+    public Sensor(String sensorType, double sensorRange, RestaurantSeating restaurantSeating, int major, int minor) {
         this.sensorType = sensorType;
         this.sensorRange = sensorRange;
         this.restaurantSeating = restaurantSeating;
@@ -46,14 +46,14 @@ public class Sensor implements Serializable {
         this.minor = minor;
     }
     
-    public Sensor(String sensorType, double sensorRange, String major, String minor){
+    public Sensor(String sensorType, double sensorRange, int major, int minor){
         this.sensorType = sensorType;
         this.sensorRange = sensorRange;
         this.major = major;
         this.minor = minor;
     }
     
-    public Sensor(String sensorType, double sensorRange,  Fridge fridge, String major, String minor) {
+    public Sensor(String sensorType, double sensorRange,  Fridge fridge, int major, int minor) {
         this.sensorType = sensorType;
         this.sensorRange = sensorRange;
         this.fridge = fridge;
@@ -61,7 +61,7 @@ public class Sensor implements Serializable {
         this.minor = minor;
     }
 
-    public Sensor(String sensorType, double sensorRange, Container container,String major, String minor) {
+    public Sensor(String sensorType, double sensorRange, Container container,int major, int minor) {
         this.sensorType = sensorType;
         this.sensorRange = sensorRange;
         this.container = container;
@@ -74,7 +74,7 @@ public class Sensor implements Serializable {
     
     
 
-    public Sensor(String sensorType, double sensorRange, Container container, Fridge fridge, RestaurantSeating restaurantSeating, String major, String minor) {
+    public Sensor(String sensorType, double sensorRange, Container container, Fridge fridge, RestaurantSeating restaurantSeating, int major, int minor) {
         this.sensorType = sensorType;
         this.sensorRange = sensorRange;
         this.container = container;
@@ -194,28 +194,28 @@ public class Sensor implements Serializable {
     /**
      * @return the major
      */
-    public String getMajor() {
+    public int getMajor() {
         return major;
     }
 
     /**
      * @param major the major to set
      */
-    public void setMajor(String major) {
+    public void setMajor(int major) {
         this.major = major;
     }
 
     /**
      * @return the minor
      */
-    public String getMinor() {
+    public int getMinor() {
         return minor;
     }
 
     /**
      * @param minor the minor to set
      */
-    public void setMinor(String minor) {
+    public void setMinor(int minor) {
         this.minor = minor;
     }
 

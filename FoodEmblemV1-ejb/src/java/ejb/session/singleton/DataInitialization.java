@@ -151,12 +151,12 @@ public class DataInitialization {
       
       
       List<Sensor> sensors = new ArrayList<>();
-      Sensor newSensor1 = sensorControllerLocal.createSensor(new Sensor("Beacons" , 10.0 , newSeat1, "32132", "31111"));
-      Sensor newSensor2 = sensorControllerLocal.createSensor(new Sensor("Beacons" , 10.0 , newSeat2, "21187","39875"));
+      Sensor newSensor1 = sensorControllerLocal.createSensor(new Sensor("Beacons" , 10.0 , newSeat1, 32132, 31111));
+      Sensor newSensor2 = sensorControllerLocal.createSensor(new Sensor("Beacons" , 10.0 , newSeat2, 21187,39875));
       
-      Sensor newSensor3 = sensorControllerLocal.createSensor(new Sensor("temperatureSensor" , 0.0 , newFridge, "", ""));
-      Sensor newSensor4 = sensorControllerLocal.createSensor(new Sensor("LoadSensor" , 0.0, newContainer1, "", ""));
-      Sensor newSensor5 = sensorControllerLocal.createSensor(new Sensor("LoadSensor" , 0.0, newContainer2, "", ""));
+      Sensor newSensor3 = sensorControllerLocal.createSensor(new Sensor("temperatureSensor" , 0.0 , newFridge, 0, 0));
+      Sensor newSensor4 = sensorControllerLocal.createSensor(new Sensor("LoadSensor" , 0.0, newContainer1, 0, 0));
+      Sensor newSensor5 = sensorControllerLocal.createSensor(new Sensor("LoadSensor" , 0.0, newContainer2, 0, 0));
       
       sensors.add(newSensor1);
       sensors.add(newSensor2);
@@ -177,7 +177,7 @@ public class DataInitialization {
        //creating promotion for newRest
       String desc = "Enjoy 30% for all dinner items only from 8pm to 10pm!";
       Promotion promotion = promotionControllerLocal.createPromotion(new Promotion(desc,30.00,new Date(),new Date(),newRest ));
-      Sensor promoSensor = sensorControllerLocal.createSensor(new Sensor("Promotion" , 15.0 , "47712", "24497"));
+      Sensor promoSensor = sensorControllerLocal.createSensor(new Sensor("Promotion" , 15.0 , 47712, 24497));
       RestaurantEmployee newEmployee = restaurantEmployeeControllerLocal.createEmployee(new RestaurantEmployee("Emp A" , "Ln A" , 'M' , "EmpA@RestA.com" , "12345678" , "Manager" , newRest));
       RestaurantEmployee newEmployee2 = restaurantEmployeeControllerLocal.createEmployee(new RestaurantEmployee("Emp B", "Ln B" , 'F', "EmpB@RestA.com" , "12345678" , "Kicthen" , newRest ));
       newRest.getSensors().add(promoSensor);
