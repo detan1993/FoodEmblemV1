@@ -9,10 +9,12 @@ import datamodel.ws.CheckHasReservation;
 import datamodel.ws.ReservationReq;
 import datamodel.ws.ReservationRsp;
 import datamodel.ws.RetrieveCustomerReservationsRsp;
+import ejb.session.stateless.CustomerEntityControllerLocal;
 import ejb.session.stateless.ReservationControllerLocal;
 import ejb.session.stateless.RestaurantSeatingControllerLocal;
 import entity.Reservation;
 import entity.RestaurantSeating;
+import entity.Sensor;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -41,6 +43,7 @@ public class CustomerReservationResource {
 
     ReservationControllerLocal reservationController = lookupReservationControllerLocal();
 RestaurantSeatingControllerLocal restaurantseatingcontroller = lookupRestaurantSeatingControllerLocal();
+CustomerEntityControllerLocal customerentitycontroller = lookupCustomerEntityControllerLocal();
     
     @Context
     private UriInfo context;
@@ -104,6 +107,22 @@ RestaurantSeatingControllerLocal restaurantseatingcontroller = lookupRestaurantS
         }
     }
     
+    @GET
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("retrieveReservationSeating/{email}")
+    public Response retrieveReservationSeating(@PathParam("email")String email){
+        try {
+            Sensor s = customerentitycontroller.retrieveReservationSeating(email);
+            System.out.println("Major and minor of seating is: " + s.getMajor() + " and " + s.getMinor());
+            return Response.status(Response.Status.OK).entity(new ReservationRsp(s)).build();
+        }
+        catch (Exception ex){
+            System.err.println(ex.getMessage());
+            return Response.status(Response.Status.BAD_REQUEST).entity(new ReservationRsp()).build();
+        }
+    }
+    
     @PUT
     @Consumes({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
     @Produces(MediaType.APPLICATION_JSON)
@@ -151,6 +170,15 @@ RestaurantSeatingControllerLocal restaurantseatingcontroller = lookupRestaurantS
           try {
             javax.naming.Context c = new InitialContext();
             return (RestaurantSeatingControllerLocal) c.lookup("java:global/FoodEmblemV1/FoodEmblemV1-ejb/RestaurantSeatingController!ejb.session.stateless.RestaurantSeatingControllerLocal");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+     private CustomerEntityControllerLocal lookupCustomerEntityControllerLocal(){
+          try {
+            javax.naming.Context c = new InitialContext();
+            return (CustomerEntityControllerLocal) c.lookup("java:global/FoodEmblemV1/FoodEmblemV1-ejb/CustomerEntityController!ejb.session.stateless.CustomerEntityControllerLocal");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

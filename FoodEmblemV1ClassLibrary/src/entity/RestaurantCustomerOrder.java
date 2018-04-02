@@ -8,6 +8,7 @@ package entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,7 +32,7 @@ public class RestaurantCustomerOrder implements Serializable {
     
     private double totalPrice;
     
-    private boolean isCooked;
+    private boolean isCooked = false;
     
     @Temporal(TemporalType.TIMESTAMP)
     private Date orderTime;
@@ -43,15 +44,15 @@ public class RestaurantCustomerOrder implements Serializable {
     private Promotion promotion;
 
     public RestaurantCustomerOrder() {
-        this.isCooked = false;
+       
     }
 
-    public RestaurantCustomerOrder(double totalPrice, Date orderTime, List<OrderDish> orderDishes, Promotion promotion) {
-        this();
+    public RestaurantCustomerOrder(double totalPrice, Date orderTime, List<OrderDish> orderDishes, Promotion promotion, Boolean isCooked) {
         this.totalPrice = totalPrice;
         this.orderTime = orderTime;
         this.orderDishes = orderDishes;
         this.promotion = promotion;
+        this.isCooked = isCooked;
     }
 
     
@@ -153,7 +154,7 @@ public class RestaurantCustomerOrder implements Serializable {
     }
 
     /**
-     * @param status the status to set
+     * @param isCooked the status to set
      */
     public void setisCooked(boolean isCooked) {
         this.isCooked = isCooked;

@@ -51,7 +51,14 @@ public class PromotionController implements PromotionControllerRemote, Promotion
         Query q = em.createQuery("SELECT p FROM Promotion p JOIN p.restaurant r JOIN r.sensors s WHERE s.major = :major AND s.minor = :minor");
         q.setParameter("major", major);
         q.setParameter("minor", minor);
-        Promotion p = (Promotion)q.getSingleResult();
+        Promotion p = new Promotion();
+        if (q.getResultList().size() > 0){
+            p = (Promotion)q.getResultList().get(0);
+        }
+        else {
+            p = null;
+        }
+        
         return p;
     }
     

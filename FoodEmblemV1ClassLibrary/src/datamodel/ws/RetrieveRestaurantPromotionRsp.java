@@ -16,9 +16,9 @@ import javax.xml.bind.annotation.XmlType;
  * @author David
  */
 
-    @XmlRootElement
+@XmlRootElement
 @XmlType(name = "retrieveRestaurantPromotionRsp", propOrder = {
-    "promotions"
+    "promotions" , "promotion"
 })
 public class RetrieveRestaurantPromotionRsp implements Serializable {
         

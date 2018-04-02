@@ -151,7 +151,7 @@ public class DataInitialization {
       
       
       List<Sensor> sensors = new ArrayList<>();
-      Sensor newSensor1 = sensorControllerLocal.createSensor(new Sensor("Beacons" , 10.0 , newSeat1, 32132, 31111));
+      Sensor newSensor1 = sensorControllerLocal.createSensor(new Sensor("Beacons" , 10.0 , newSeat1, 47712, 24497));
       Sensor newSensor2 = sensorControllerLocal.createSensor(new Sensor("Beacons" , 10.0 , newSeat2, 21187,39875));
       
       Sensor newSensor3 = sensorControllerLocal.createSensor(new Sensor("temperatureSensor" , 0.0 , newFridge, 0, 0));

@@ -7,8 +7,10 @@ package ejb.session.stateless;
 
 import entity.Customer;
 import entity.OrderDish;
+import entity.Promotion;
 import entity.Reservation;
 import entity.RestaurantCustomerOrder;
+import entity.Sensor;
 import java.util.List;
 
 
@@ -21,4 +23,5 @@ public interface CustomerEntityControllerLocal {
 
     public boolean addNewReservationRecord(Reservation newReservation, String customerId);
     public RestaurantCustomerOrder addCustomerOrder(String email, List<OrderDish>orderDishes, Double total);
+    public Sensor retrieveReservationSeating(String email);
 }

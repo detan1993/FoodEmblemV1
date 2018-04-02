@@ -74,13 +74,18 @@ public class PromotionResource {
      public Response retrieveRestaurantPromoFromBeacon(@PathParam("major") int major, @PathParam("minor") int minor){
          try{
              Promotion promo = promotionController.retrieveRestaurantPromoFromBeacon(major, minor);
-             System.out.print("Promo desc is " + promo.getDescription());
-             return Response.status(Response.Status.OK).entity(new RetrieveRestaurantPromotionRsp(promo)).build();
+             if (promo != null){
+               System.out.println("Promo desc is " + promo.getDescription());
+             return Response.status(Response.Status.OK).entity(new RetrieveRestaurantPromotionRsp(promo)).build();   
+             }
+             else {
+                    return Response.status(Response.Status.BAD_REQUEST).entity(new RetrieveRestaurantPromotionRsp()).build();
+             }
          }
          catch (Exception ex){
              ex.printStackTrace();
               return Response.status(Response.Status.BAD_REQUEST).entity(new RetrieveRestaurantPromotionRsp()).build();
-         }
+         } 
      }
     /**
      * PUT method for updating or creating an instance of PromotionResource

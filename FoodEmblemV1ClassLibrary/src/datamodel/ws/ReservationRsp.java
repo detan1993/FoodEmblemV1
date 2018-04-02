@@ -6,8 +6,8 @@
 package datamodel.ws;
 
 import entity.Reservation;
+import entity.Sensor;
 import java.io.Serializable;
-import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -17,17 +17,21 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlRootElement
 @XmlType(name = "reservationRsp", propOrder = {
-    "reservation"
+    "reservation" , "reservationSeating"
 })
 
 public class ReservationRsp  implements Serializable  {
     private static final long serialVersionUID = 1L;
     
     private Reservation reservation;
+    private Sensor reservationSeating;
 
     public ReservationRsp() {
     }
     
+    public ReservationRsp(Sensor reservationSeating){
+        this.reservationSeating = reservationSeating;
+    }
     
     public ReservationRsp(Reservation reservation) {
         this.reservation = reservation;
@@ -46,6 +50,20 @@ public class ReservationRsp  implements Serializable  {
      */
     public void setReservation(Reservation reservation) {
         this.reservation = reservation;
+    }
+
+    /**
+     * @return the reservationSeating
+     */
+    public Sensor getReservationSeating() {
+        return reservationSeating;
+    }
+
+    /**
+     * @param reservationSeating the reservationSeating to set
+     */
+    public void setReservationSeating(Sensor reservationSeating) {
+        this.reservationSeating = reservationSeating;
     }
     
     
