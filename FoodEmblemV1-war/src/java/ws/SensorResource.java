@@ -10,6 +10,7 @@ import datamodel.ws.RetrieveRestaurantFridgeRsp;
 import datamodel.ws.RetrieveRestaurantSeatingRsp;
 import datamodel.ws.RetrieveRestaurantSensorRsp;
 import datamodel.ws.UpdateRestaurantFridgeTempReq;
+import datamodel.ws.UpdateRestaurantInventoryWeigthReq;
 import ejb.session.stateless.ContainerControllerLocal;
 import ejb.session.stateless.FridgeControllerLocal;
 import ejb.session.stateless.RestaurantSeatingControllerLocal;
@@ -121,7 +122,7 @@ public class SensorResource {
         catch(Exception ex)
         {
             ex.printStackTrace();
-            return Response.status(Status.BAD_REQUEST).entity(new RetrieveRestaurantFridgeRsp(null)).build();
+            return Response.status(Status.INTERNAL_SERVER_ERROR).entity(new RetrieveRestaurantFridgeRsp(null)).build();
         }
     }
     
@@ -145,28 +146,28 @@ public class SensorResource {
         }
     }
     
-    @GET
-    @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("testUpdate/{restaurantId}")
-    public void updateFridge(@PathParam("restaurantId") String restaurantId)
-    {
-        try
-        {
-           
-            System.out.println("********** Updating seats from restaurant ID" + restaurantId);
-            fridgeController.updateTempTest(Long.parseLong(restaurantId));
- 
-
-            //return Response.status(Status.OK).entity(new RetrieveRestaurantSeatingRsp(restaurantSeatingController.retrieveSeatsByRestaurantId(Long.parseLong(restaurantId)))).build();
- 
-        }
-        catch(Exception ex)
-        {
-            System.err.println(ex.getMessage());
-           // return Response.status(Status.BAD_REQUEST).entity(new RetrieveRestaurantSeatingRsp(null)).build();
-        }
-    }
+//    @GET
+//    @Consumes(MediaType.TEXT_PLAIN)
+//    @Produces(MediaType.APPLICATION_JSON)
+//    @Path("testUpdate/{restaurantId}")
+//    public void updateFridge(@PathParam("restaurantId") String restaurantId)
+//    {
+//        try
+//        {
+//           
+//            System.out.println("********** Updating seats from restaurant ID" + restaurantId);
+//            fridgeController.updateTempTest(Long.parseLong(restaurantId));
+// 
+//
+//            //return Response.status(Status.OK).entity(new RetrieveRestaurantSeatingRsp(restaurantSeatingController.retrieveSeatsByRestaurantId(Long.parseLong(restaurantId)))).build();
+// 
+//        }
+//        catch(Exception ex)
+//        {
+//            System.err.println(ex.getMessage());
+//           // return Response.status(Status.BAD_REQUEST).entity(new RetrieveRestaurantSeatingRsp(null)).build();
+//        }
+//    }
     
     @PUT
     @Consumes({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
@@ -197,6 +198,38 @@ public class SensorResource {
             return Response.status(Response.Status.BAD_REQUEST).entity("Invalid register request").build();
         }
     }
+    
+     @PUT
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("updateRestaurantContainerInventoryWeight")
+    public Response updateRestaurantContainer(JAXBElement<UpdateRestaurantInventoryWeigthReq> jaxbUpdateWeightReq)
+    {
+       
+        if((jaxbUpdateWeightReq != null) && (jaxbUpdateWeightReq.getValue() != null))
+        {
+            try
+            {
+                System.err.println("********** update Restaurant weight");
+                UpdateRestaurantInventoryWeigthReq request = jaxbUpdateWeightReq.getValue();
+                
+                sensorController.updateContainerInventoryWeight(request.getRestaurantId(), request.getContainerId(), request.getInventory());
+                        
+                return Response.status(Response.Status.OK).build();
+            }
+            catch(Exception ex)
+            {
+                System.out.println("error" + ex);
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+            }
+        }
+        else
+        {
+            return Response.status(Response.Status.BAD_REQUEST).entity("Invalid register request").build();
+        }
+    }
+    
+    
   
     
     
