@@ -151,14 +151,23 @@ public class DataInitialization {
       
       
       List<Sensor> sensors = new ArrayList<>();
-      Sensor newSensor1 = sensorControllerLocal.createSensor(new Sensor("Beacons" , 10.0 , newSeat1, 47712, 24497));
-      Sensor newSensor2 = sensorControllerLocal.createSensor(new Sensor("Beacons" , 10.0 , newSeat2, 21187,39875));
+      Sensor promoSensor = sensorControllerLocal.createSensor(new Sensor("47712_244497" , "Beacon" , 10.0 , newSeat1, "Promotion Sensor"));
+    //sensorControllerLocal.createSensor(new Sensor("Promotion" , 15.0 , 47712, 24497));
+    
+     //   Sensor newSensor1 =sensorControllerLocal.createSensor(new Sensor("47712_244497" , "Beacon" , 10.0 , newSeat1, "Restaurant Seating"  ));
+      //sensorControllerLocal.createSensor(new Sensor("Beacons 1 ID" , "Beacon" , 10.0 , newSeat1, 47712, 24497));
+      Sensor newSensor2 =  sensorControllerLocal.createSensor(new Sensor("21187_39875" , "Beacon" , 10.0 , newSeat2, "Restaurant Seating"  ));
+    //sensorControllerLocal.createSensor(new Sensor("Beacpns 2 ID", "Beacon" , 10.0 , newSeat2, 21187,39875));
       
-      Sensor newSensor3 = sensorControllerLocal.createSensor(new Sensor("temperatureSensor" , 0.0 , newFridge, 0, 0));
-      Sensor newSensor4 = sensorControllerLocal.createSensor(new Sensor("LoadSensor" , 0.0, newContainer1, 0, 0));
-      Sensor newSensor5 = sensorControllerLocal.createSensor(new Sensor("LoadSensor" , 0.0, newContainer2, 0, 0));
+      Sensor newSensor3 = sensorControllerLocal.createSensor(new Sensor("D3:8D:51:5B:43:37" , "Microbit" , 7.0 , newFridge, "Temperature Sensor"));
+      Sensor newSensor4 = sensorControllerLocal.createSensor(new Sensor("LoadCellID1" , "LoadCellName" , 0.0 , newContainer1, "Weight Sensor"));
+      //sensorControllerLocal.createSensor(new Sensor("LoadSensor" , 0.0, newContainer1, 0, 0));
+      Sensor newSensor5 = sensorControllerLocal.createSensor(new Sensor("LoadCellID2" , "LoadCellName" , 0.0 , newContainer2, "Weight Sensor"));
+              //= sensorControllerLocal.createSensor(new Sensor("LoadSensor" , 0.0, newContainer2, 0, 0));
       
-      sensors.add(newSensor1);
+
+      
+      sensors.add(promoSensor);
       sensors.add(newSensor2);
       sensors.add(newSensor3);
       sensors.add(newSensor4);
@@ -177,10 +186,10 @@ public class DataInitialization {
        //creating promotion for newRest
       String desc = "Enjoy 30% for all dinner items only from 8pm to 10pm!";
       Promotion promotion = promotionControllerLocal.createPromotion(new Promotion(desc,30.00,new Date(),new Date(),newRest ));
-      Sensor promoSensor = sensorControllerLocal.createSensor(new Sensor("Promotion" , 15.0 , 47712, 24497));
+  //    Sensor promoSensor = sensorControllerLocal.createSensor(new Sensor("Promotion" , 15.0 , 47712, 24497));
       RestaurantEmployee newEmployee = restaurantEmployeeControllerLocal.createEmployee(new RestaurantEmployee("Emp A" , "Ln A" , 'M' , "EmpA@RestA.com" , "12345678" , "Manager" , newRest));
       RestaurantEmployee newEmployee2 = restaurantEmployeeControllerLocal.createEmployee(new RestaurantEmployee("Emp B", "Ln B" , 'F', "EmpB@RestA.com" , "12345678" , "Kicthen" , newRest ));
-      newRest.getSensors().add(promoSensor);
+    //  newRest.getSensors().add(promoSensor);
       
       
      // System.out.println("New Employee ID " + newEmployee.getId() + " and " + newEmployee2.getId() + " are created");

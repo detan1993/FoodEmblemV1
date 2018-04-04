@@ -21,38 +21,68 @@ public class Sensor implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String sensorId;
     private String sensorType;
     private double sensorRange;
     @OneToOne
     private Container container;
     @OneToOne
     private Fridge fridge;
-    private int major;
-    private int minor;
+    /*private int major;
+    private int minor;*/
     @OneToOne
     private RestaurantSeating restaurantSeating;
 
+    private String sensorDescription;
+
     public Sensor() {
-        
+
     }
 
-    public Sensor(String sensorType, double sensorRange, RestaurantSeating restaurantSeating, int major, int minor) {
+    /*JY CODE
+    public Sensor(String sensorId, String sensorType, double sensorRange, RestaurantSeating restaurantSeating, int major, int minor) {
+       this.sensorId = sensorId;
         this.sensorType = sensorType;
         this.sensorRange = sensorRange;
         this.restaurantSeating = restaurantSeating;
         this.major = major;
         this.minor = minor;
+    }*/
+    public Sensor(String sensorId, String sensorType, double sensorRange, RestaurantSeating restaurantSeating, String sensorDescription) {
+        this.sensorId = sensorId;
+        this.sensorType = sensorType;
+        this.sensorRange = sensorRange;
+        this.restaurantSeating = restaurantSeating;
+        this.sensorDescription = sensorDescription;
     }
-    
+
+    //David
+    public Sensor(String sensorId, String sensorType, double sensorRange, Fridge fridge, String sensorDescription) {
+        this.sensorId = sensorId;
+        this.sensorType = sensorType;
+        this.sensorRange = sensorRange;
+        this.fridge = fridge;
+
+    }
+
+    public Sensor(String sensorId, String sensorType, double sensorRange, Container container, String sensorDescription) {
+        this.sensorId = sensorId;
+        this.sensorType = sensorType;
+        this.sensorRange = sensorRange;
+        this.container = container;
+        this.sensorDescription = sensorDescription;
+
+    }
+
+    /*JY ode
     public Sensor(String sensorType, double sensorRange, int major, int minor){
         this.sensorType = sensorType;
         this.sensorRange = sensorRange;
         this.major = major;
         this.minor = minor;
-    }
-    
+    }*/
+ /*JY code
     public Sensor(String sensorType, double sensorRange,  Fridge fridge, int major, int minor) {
         this.sensorType = sensorType;
         this.sensorRange = sensorRange;
@@ -61,19 +91,15 @@ public class Sensor implements Serializable {
         this.minor = minor;
     }
 
+    //JY ONE
     public Sensor(String sensorType, double sensorRange, Container container,int major, int minor) {
         this.sensorType = sensorType;
         this.sensorRange = sensorRange;
         this.container = container;
         this.major = major;
         this.minor = minor;
-    }
-    
-    
-    
-    
-    
-
+    }*/
+ /*JY CODE
     public Sensor(String sensorType, double sensorRange, Container container, Fridge fridge, RestaurantSeating restaurantSeating, int major, int minor) {
         this.sensorType = sensorType;
         this.sensorRange = sensorRange;
@@ -82,20 +108,16 @@ public class Sensor implements Serializable {
         this.restaurantSeating = restaurantSeating;
         this.major = major;
         this.minor = minor;
-    }
-    
-    
-    
-    
-    public Long getId() {
+    }*/
+ /*   public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
+    }*/
 
-    @Override
+ /* @Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
@@ -113,11 +135,10 @@ public class Sensor implements Serializable {
             return false;
         }
         return true;
-    }
-
+    }*/
     @Override
     public String toString() {
-        return "entity.Sensor[ id=" + id + " ]";
+        return "entity.Sensor[ id=" + getSensorId() + " ]";
     }
 
     /**
@@ -134,7 +155,6 @@ public class Sensor implements Serializable {
         this.sensorType = sensorType;
     }
 
-  
     /**
      * @return the container
      */
@@ -191,37 +211,62 @@ public class Sensor implements Serializable {
         this.sensorRange = sensorRange;
     }
 
+//    /**
+//     * @return the major
+//     */
+//    public int getMajor() {
+//        return major;
+//    }
+//
+//    /**
+//     * @param major the major to set
+//     */
+//    public void setMajor(int major) {
+//        this.major = major;
+//    }
+//
+//    /**
+//     * @return the minor
+//     */
+//    public int getMinor() {
+//        return minor;
+//    }
+//
+//    /**
+//     * @param minor the minor to set
+//     */
+//    public void setMinor(int minor) {
+//        this.minor = minor;
+//    }
     /**
-     * @return the major
+     * @return the sensorId
      */
-    public int getMajor() {
-        return major;
+    public String getSensorId() {
+        return sensorId;
     }
 
     /**
-     * @param major the major to set
+     * @param sensorId the sensorId to set
      */
-    public void setMajor(int major) {
-        this.major = major;
+    public void setSensorId(String sensorId) {
+        this.sensorId = sensorId;
     }
 
     /**
-     * @return the minor
+     * @return the sensorDescription
      */
-    public int getMinor() {
-        return minor;
+    public String getSensorDescription() {
+        return sensorDescription;
     }
 
     /**
-     * @param minor the minor to set
+     * @param sensorDescription the sensorDescription to set
      */
-    public void setMinor(int minor) {
-        this.minor = minor;
+    public void setSensorDescription(String sensorDescription) {
+        this.sensorDescription = sensorDescription;
     }
 
     /**
      * @return the restSeating
      */
-
-    
 }

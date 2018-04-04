@@ -114,7 +114,10 @@ CustomerEntityControllerLocal customerentitycontroller = lookupCustomerEntityCon
     public Response retrieveReservationSeating(@PathParam("email")String email){
         try {
             Sensor s = customerentitycontroller.retrieveReservationSeating(email);
-            System.out.println("Major and minor of seating is: " + s.getMajor() + " and " + s.getMinor());
+            String [] majorMinor = s.getSensorId().split("_");
+         //   System.out.println("Major and minor of seating is: " + s.getMajor() + " and " + s.getMinor());
+            System.out.println("Major and minor of seating is: " + majorMinor[0]  + " and " + majorMinor[1]);
+         
             return Response.status(Response.Status.OK).entity(new ReservationRsp(s)).build();
         }
         catch (Exception ex){
