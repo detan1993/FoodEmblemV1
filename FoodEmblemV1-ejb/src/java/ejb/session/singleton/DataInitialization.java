@@ -151,8 +151,8 @@ public class DataInitialization {
       
       
       List<Sensor> sensors = new ArrayList<>();
-      Sensor promoSensor = sensorControllerLocal.createSensor(new Sensor("47712_244497" , "Beacon" , 10.0 , newSeat1, "Promotion Sensor"));
-    //sensorControllerLocal.createSensor(new Sensor("Promotion" , 15.0 , 47712, 24497));
+      Sensor newSensor1 = sensorControllerLocal.createSensor(new Sensor("33083_34852" , "Beacon" , 10.0 , newSeat1, "Restaurant Seating"));
+      //sensorControllerLocal.createSensor(new Sensor("47712_24497","Promotion" , 15.0, "This is promotion sensor used by Restaurant A"));
     
      //   Sensor newSensor1 =sensorControllerLocal.createSensor(new Sensor("47712_244497" , "Beacon" , 10.0 , newSeat1, "Restaurant Seating"  ));
       //sensorControllerLocal.createSensor(new Sensor("Beacons 1 ID" , "Beacon" , 10.0 , newSeat1, 47712, 24497));
@@ -167,7 +167,7 @@ public class DataInitialization {
       
 
       
-      sensors.add(promoSensor);
+      sensors.add(newSensor1);
       sensors.add(newSensor2);
       sensors.add(newSensor3);
       sensors.add(newSensor4);
@@ -186,10 +186,10 @@ public class DataInitialization {
        //creating promotion for newRest
       String desc = "Enjoy 30% for all dinner items only from 8pm to 10pm!";
       Promotion promotion = promotionControllerLocal.createPromotion(new Promotion(desc,30.00,new Date(),new Date(),newRest ));
-  //    Sensor promoSensor = sensorControllerLocal.createSensor(new Sensor("Promotion" , 15.0 , 47712, 24497));
+      Sensor promoSensor = sensorControllerLocal.createSensor(new Sensor("47712_24497","Promotion" , 15.0, "This is promotion sensor used by Restaurant A"));
       RestaurantEmployee newEmployee = restaurantEmployeeControllerLocal.createEmployee(new RestaurantEmployee("Emp A" , "Ln A" , 'M' , "EmpA@RestA.com" , "12345678" , "Manager" , newRest));
       RestaurantEmployee newEmployee2 = restaurantEmployeeControllerLocal.createEmployee(new RestaurantEmployee("Emp B", "Ln B" , 'F', "EmpB@RestA.com" , "12345678" , "Kicthen" , newRest ));
-    //  newRest.getSensors().add(promoSensor);
+      newRest.getSensors().add(promoSensor);
       
       
      // System.out.println("New Employee ID " + newEmployee.getId() + " and " + newEmployee2.getId() + " are created");
