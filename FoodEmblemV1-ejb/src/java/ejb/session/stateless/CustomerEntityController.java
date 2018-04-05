@@ -168,5 +168,14 @@ public class CustomerEntityController implements CustomerEntityControllerRemote,
          return restcustorder;
     }
     
+    @Override
+    public RestaurantCustomerOrder addCustomerOrder(RestaurantCustomerOrder order){
+        em.persist(order);
+        em.flush();
+        em.refresh(order);
+        
+        return order;
+    }
+    
     
 }

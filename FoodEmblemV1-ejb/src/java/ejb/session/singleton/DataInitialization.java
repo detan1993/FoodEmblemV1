@@ -81,6 +81,7 @@ public class DataInitialization {
     
     @EJB(name = "OrderDishControllerLocal")
     private OrderDishControllerLocal orderDishControllerLocal;
+    
 
     @PersistenceContext(unitName = "FoodEmblemV1-ejbPU")
     private EntityManager em;
@@ -199,16 +200,21 @@ public class DataInitialization {
       
       
       RestaurantCustomerOrder order = new RestaurantCustomerOrder(49.95, new Date(), null, null,false);
-      
+      customerEntityControllerLocal.addCustomerOrder(order);
+
       OrderDish od1 = new OrderDish(3, order, newDish1);
       OrderDish od2 = new OrderDish(1, order, newDish2);
+      
+      orderDishControllerLocal.createOrderDish(od1);
+      orderDishControllerLocal.createOrderDish(od2);
+      
       List<OrderDish> orderDishList = new ArrayList<OrderDish>();
       orderDishList.add(od1);
       orderDishList.add(od2);
       order.setOrderDishes(orderDishList);
       
-      orderDishControllerLocal.createOrderDish(od1);
-      orderDishControllerLocal.createOrderDish(od2);
+
+
       
      // System.out.println("New Employee ID " + newEmployee.getId() + " and " + newEmployee2.getId() + " are created");
       
