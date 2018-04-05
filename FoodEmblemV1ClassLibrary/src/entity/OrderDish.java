@@ -24,13 +24,15 @@ public class OrderDish implements Serializable {
     private Long id;
     
     private int qty;
+    private long orderId;
     private long dishId;
 
     public OrderDish() {
     }
 
-    public OrderDish(int qty, long dishId) {
+    public OrderDish(int qty,long orderId, long dishId) {
         this.qty = qty;
+        this.orderId = orderId;
         this.dishId = dishId;
     }
 
@@ -89,4 +91,13 @@ public class OrderDish implements Serializable {
         this.dishId = dishId;
     }
 
+    public long getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(long orderId) {
+        this.orderId = orderId;
+    }
+
+    
 }

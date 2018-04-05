@@ -153,6 +153,7 @@ public class DataInitialization {
       
       //creating restaurant Fridge
       Fridge newFridge =   fridgeControllerLocal.createFridge(new Fridge(0.0 , 0.0));
+      Fridge newFridge2 =   fridgeControllerLocal.createFridge(new Fridge(0.0 , 0.0));
       
       Inventory newInventory1 = inventoryControllerLocal.createInventory(new Inventory("Salmon" , 0.20 , 5.0));
       Inventory newInventory2 = inventoryControllerLocal.createInventory(new Inventory("Cabbage" , 0.30, 5.0));
@@ -176,7 +177,7 @@ public class DataInitialization {
       //sensorControllerLocal.createSensor(new Sensor("LoadSensor" , 0.0, newContainer1, 0, 0));
       Sensor newSensor5 = sensorControllerLocal.createSensor(new Sensor("LoadCellID2" , "LoadCellName" , 0.0 , newContainer2, "Weight Sensor"));
               //= sensorControllerLocal.createSensor(new Sensor("LoadSensor" , 0.0, newContainer2, 0, 0));
-      
+      Sensor newSensor6 = sensorControllerLocal.createSensor(new Sensor("FF:43:88:BB:AA:E5" , "Microbit" , 7.0 , newFridge2, "Temperature Sensor"));
 
       
       sensors.add(newSensor1);
@@ -184,6 +185,7 @@ public class DataInitialization {
       sensors.add(newSensor3);
       sensors.add(newSensor4);
       sensors.add(newSensor5);
+      sensors.add(newSensor6);
 
       
       List<Dish> dishes = new ArrayList<>();
@@ -210,8 +212,8 @@ public class DataInitialization {
       RestaurantCustomerOrder order = new RestaurantCustomerOrder(49.95, new Date(), null, null,false);
       customerEntityControllerLocal.addCustomerOrder(order);
 
-      OrderDish od1 = new OrderDish(3,newDish1.getId());
-      OrderDish od2 = new OrderDish(1,newDish1.getId());
+      OrderDish od1 = new OrderDish(3,order.getId(),newDish1.getId());
+      OrderDish od2 = new OrderDish(1,order.getId(),newDish1.getId());
       
       orderDishControllerLocal.createOrderDish(od1);
       orderDishControllerLocal.createOrderDish(od2);
