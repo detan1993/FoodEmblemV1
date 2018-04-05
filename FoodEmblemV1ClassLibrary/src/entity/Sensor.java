@@ -65,6 +65,13 @@ public class Sensor implements Serializable {
         this.fridge = fridge;
 
     }
+    
+     public Sensor(String sensorId, String sensorType, double sensorRange, String sensorDescription) {
+        this.sensorId = sensorId;
+        this.sensorType = sensorType;
+        this.sensorRange = sensorRange;
+
+    }
 
     public Sensor(String sensorId, String sensorType, double sensorRange, Container container, String sensorDescription) {
         this.sensorId = sensorId;

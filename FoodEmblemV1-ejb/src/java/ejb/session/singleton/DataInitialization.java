@@ -9,6 +9,7 @@ import ejb.session.stateless.ContainerControllerLocal;
 import ejb.session.stateless.CustomerEntityControllerLocal;
 import ejb.session.stateless.FridgeControllerLocal;
 import ejb.session.stateless.InventoryControllerLocal;
+import ejb.session.stateless.OrderDishControllerLocal;
 import ejb.session.stateless.PromotionControllerLocal;
 import ejb.session.stateless.RestaurantControllerLocal;
 import ejb.session.stateless.RestaurantDishControllerLocal;
@@ -20,8 +21,10 @@ import entity.Customer;
 import entity.Dish;
 import entity.Fridge;
 import entity.Inventory;
+import entity.OrderDish;
 import entity.Promotion;
 import entity.Restaurant;
+import entity.RestaurantCustomerOrder;
 import entity.RestaurantEmployee;
 import entity.RestaurantSeating;
 import entity.Sensor;
@@ -75,6 +78,9 @@ public class DataInitialization {
     
     @EJB(name = "PromotionControllerLocal")
     private PromotionControllerLocal promotionControllerLocal;
+    
+    @EJB(name = "OrderDishControllerLocal")
+    private OrderDishControllerLocal orderDishControllerLocal;
 
     @PersistenceContext(unitName = "FoodEmblemV1-ejbPU")
     private EntityManager em;
@@ -191,6 +197,18 @@ public class DataInitialization {
       RestaurantEmployee newEmployee2 = restaurantEmployeeControllerLocal.createEmployee(new RestaurantEmployee("Emp B", "Ln B" , 'F', "EmpB@RestA.com" , "12345678" , "Kicthen" , newRest ));
       newRest.getSensors().add(promoSensor);
       
+      
+      RestaurantCustomerOrder order = new RestaurantCustomerOrder(49.95, new Date(), null, null,false);
+      
+      OrderDish od1 = new OrderDish(3, order, newDish1);
+      OrderDish od2 = new OrderDish(1, order, newDish2);
+      List<OrderDish> orderDishList = new ArrayList<OrderDish>();
+      orderDishList.add(od1);
+      orderDishList.add(od2);
+      order.setOrderDishes(orderDishList);
+      
+      orderDishControllerLocal.createOrderDish(od1);
+      orderDishControllerLocal.createOrderDish(od2);
       
      // System.out.println("New Employee ID " + newEmployee.getId() + " and " + newEmployee2.getId() + " are created");
       
