@@ -6,13 +6,10 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 /**
  *
@@ -27,25 +24,16 @@ public class OrderDish implements Serializable {
     private Long id;
     
     private int qty;
-    @ManyToOne
-    private RestaurantCustomerOrder restCustOrder;
-    
-   
-    @ManyToOne
-    private Dish dish;
+    private long dishId;
 
     public OrderDish() {
     }
 
-    public OrderDish(int qty, RestaurantCustomerOrder restCustOrder, Dish dish) {
+    public OrderDish(int qty, long dishId) {
         this.qty = qty;
-        this.restCustOrder = restCustOrder;
-        this.dish = dish;
+        this.dishId = dishId;
     }
 
-    
-    
-    
     public Long getId() {
         return id;
     }
@@ -93,32 +81,12 @@ public class OrderDish implements Serializable {
         this.qty = qty;
     }
 
-    /**
-     * @return the restCustOrder
-     */
-    public RestaurantCustomerOrder getRestCustOrder() {
-        return restCustOrder;
+    public long getDishId() {
+        return dishId;
     }
 
-    /**
-     * @param restCustOrder the restCustOrder to set
-     */
-    public void setRestCustOrder(RestaurantCustomerOrder restCustOrder) {
-        this.restCustOrder = restCustOrder;
+    public void setDishId(long dishId) {
+        this.dishId = dishId;
     }
 
-    /**
-     * @return the dishes
-     */
-    public Dish getDish() {
-        return dish;
-    }
-
-    /**
-     * @param dishes the dishes to set
-     */
-    public void setDish(Dish dish) {
-        this.dish = dish;
-    }
-    
 }

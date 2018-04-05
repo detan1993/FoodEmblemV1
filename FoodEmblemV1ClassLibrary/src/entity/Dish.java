@@ -30,7 +30,7 @@ public class Dish implements Serializable {
     private String imagePath;
     private double price;
     
-    @OneToMany(mappedBy ="dish") 
+    @OneToMany
     private List<OrderDish> orderDishes;
 
     public Dish() {

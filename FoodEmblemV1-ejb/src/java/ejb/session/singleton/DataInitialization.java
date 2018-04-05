@@ -11,6 +11,7 @@ import ejb.session.stateless.FridgeControllerLocal;
 import ejb.session.stateless.InventoryControllerLocal;
 import ejb.session.stateless.OrderDishControllerLocal;
 import ejb.session.stateless.PromotionControllerLocal;
+import ejb.session.stateless.ReservationControllerLocal;
 import ejb.session.stateless.RestaurantControllerLocal;
 import ejb.session.stateless.RestaurantDishControllerLocal;
 import ejb.session.stateless.RestaurantEmployeeControllerLocal;
@@ -23,6 +24,7 @@ import entity.Fridge;
 import entity.Inventory;
 import entity.OrderDish;
 import entity.Promotion;
+import entity.Reservation;
 import entity.Restaurant;
 import entity.RestaurantCustomerOrder;
 import entity.RestaurantEmployee;
@@ -81,6 +83,9 @@ public class DataInitialization {
     
     @EJB(name = "OrderDishControllerLocal")
     private OrderDishControllerLocal orderDishControllerLocal;
+    
+    @EJB(name="ReservationControllerLocal")
+    private ReservationControllerLocal reservationControllerLocal;
     
 
     @PersistenceContext(unitName = "FoodEmblemV1-ejbPU")
@@ -199,11 +204,14 @@ public class DataInitialization {
       newRest.getSensors().add(promoSensor);
       
       
+      Reservation reservation = new Reservation(new Date(), "Active", 4, 4, null, newSeat2);
+      reservationControllerLocal.createReservation(reservation, newCustomer1.getEmail(), newSeat1.getId());
+      
       RestaurantCustomerOrder order = new RestaurantCustomerOrder(49.95, new Date(), null, null,false);
       customerEntityControllerLocal.addCustomerOrder(order);
 
-      OrderDish od1 = new OrderDish(3, order, newDish1);
-      OrderDish od2 = new OrderDish(1, order, newDish2);
+      OrderDish od1 = new OrderDish(3,newDish1.getId());
+      OrderDish od2 = new OrderDish(1,newDish1.getId());
       
       orderDishControllerLocal.createOrderDish(od1);
       orderDishControllerLocal.createOrderDish(od2);
@@ -212,6 +220,13 @@ public class DataInitialization {
       orderDishList.add(od1);
       orderDishList.add(od2);
       order.setOrderDishes(orderDishList);
+      
+      newDish1.setOrderDishes(orderDishList);
+      
+      List<RestaurantCustomerOrder> orderList = new ArrayList<RestaurantCustomerOrder>();
+      orderList.add(order);
+      reservation.setRestCustOrders(orderList);
+      
       
 
 

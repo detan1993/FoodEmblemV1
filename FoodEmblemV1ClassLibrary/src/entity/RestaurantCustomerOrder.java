@@ -8,7 +8,6 @@ package entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -37,7 +36,7 @@ public class RestaurantCustomerOrder implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date orderTime;
     
-    @OneToMany(mappedBy="restCustOrder") 
+    @OneToMany
     private List<OrderDish> orderDishes;
     
     @ManyToOne

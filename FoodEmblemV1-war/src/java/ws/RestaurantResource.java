@@ -50,11 +50,11 @@ public class RestaurantResource {
     @GET
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
+    @Path("retrieveAllRestaurants/")
     public Response retrieveAllRestaurants()
     {
         try
         {
-           
             System.out.println("********** retrieving restaurnt ********");
             return Response.status(Response.Status.OK).entity(new RetrieveRestaurantsRsp(restaurantController.retrieveRestaurant())).build();
  
@@ -70,15 +70,15 @@ public class RestaurantResource {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("retrieveCustomerOrders/{restid}")
-    public Response retrieveCustomerOrders(@PathParam("restid")int restid){
+    public Response retrieveCustomerOrders(@PathParam("restid") int restid){
         try {
-              System.out.println("********** retrieving restaurant orders ********");
-              List<OrderDish>orderdishes = restaurantController.retrieveCustomerOrders(restid);
-               System.out.println("Size of order dishes is " + orderdishes.size());
-              return Response.status(Response.Status.OK).entity(new RetrieveCustomerOrdersRsp(orderdishes)).build();
+            System.out.println("********** retrieving restaurant orders ********");
+            List<OrderDish> orderdishes = restaurantController.retrieveCustomerOrders(restid);
+            System.out.println("Size of order dishes is " + orderdishes.size());
+            return Response.status(Response.Status.OK).entity(new RetrieveCustomerOrdersRsp(orderdishes)).build();
         }
         catch (Exception ex){
-            ex.printStackTrace();
+             System.err.print(ex.toString());
              return Response.status(Response.Status.BAD_REQUEST).entity(new RetrieveCustomerOrdersRsp(null)).build();
         }
     }

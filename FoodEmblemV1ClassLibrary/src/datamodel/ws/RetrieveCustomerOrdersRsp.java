@@ -21,14 +21,14 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class RetrieveCustomerOrdersRsp implements Serializable {
     
-    private List<OrderDish>customerOrders;
+    private List<OrderDish> customerOrders;
     
     
     public RetrieveCustomerOrdersRsp(){
         
     }
     
-    public RetrieveCustomerOrdersRsp(List<OrderDish>customerOrders){
+    public RetrieveCustomerOrdersRsp(List<OrderDish> customerOrders){
         this.customerOrders = customerOrders;
     }
 

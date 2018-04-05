@@ -140,8 +140,8 @@ public class CustomerEntityController implements CustomerEntityControllerRemote,
                 q.setParameter("dishid", dishid); 
                 Dish dish = (Dish)q.getSingleResult();
                 dishkey = dish.getId();
-                orderdish.setRestCustOrder(restcustorder);
-                orderdish.setDish(dish);
+                //orderdish.setRestCustOrder(restcustorder);
+               // orderdish.setDish(dish);
                 orderdish.setQty(quantity);  
                 em.persist(orderdish);
                 restcustorder.getOrderDishes().add(orderdish);
