@@ -102,6 +102,7 @@ public class FridgeController implements FridgeControllerRemote, FridgeControlle
                     
         }catch(Exception ex)
         {
+            ex.printStackTrace();
             System.err.println("Error" + ex.getMessage());
             return null;
         }

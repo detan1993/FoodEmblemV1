@@ -7,6 +7,7 @@ package ws;
 
 import datamodel.ws.RetrieveRestaurantContainerRsp;
 import datamodel.ws.RetrieveRestaurantFridgeRsp;
+import datamodel.ws.RetrieveRestaurantFridgeSensorsRsp;
 import datamodel.ws.RetrieveRestaurantSeatingRsp;
 import datamodel.ws.RetrieveRestaurantSensorRsp;
 import datamodel.ws.UpdateRestaurantFridgeTempReq;
@@ -229,6 +230,25 @@ public class SensorResource {
         }
     }
     
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("getRestaurantAllFridgeSensors/{restaurantId}")
+    public Response retrieveAllFridgeSensorsFromRestaurant(@PathParam("restaurantId") String restaurantId)
+    {
+        try
+        {
+           
+            System.out.println("********** Retrieving Fridges from restaurant ID" + restaurantId);
+            return Response.status(Status.OK).entity(new RetrieveRestaurantFridgeSensorsRsp(sensorController.retrieveFridgeSensor(Long.parseLong(restaurantId)))).build();
+ 
+        }
+        catch(Exception ex)
+        {
+            System.err.println(ex.getMessage());
+            return Response.status(Status.INTERNAL_SERVER_ERROR).entity(new RetrieveRestaurantFridgeSensorsRsp(null)).build();
+        }
+    }
     
   
     

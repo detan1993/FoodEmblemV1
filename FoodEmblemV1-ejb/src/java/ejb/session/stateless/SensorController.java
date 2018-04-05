@@ -10,6 +10,7 @@ import entity.Fridge;
 import entity.Inventory;
 import entity.Restaurant;
 import entity.Sensor;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Local;
 import javax.ejb.Remote;
@@ -56,6 +57,7 @@ public class SensorController implements SensorControllerRemote, SensorControlle
         } catch (Exception ex) {
 
             System.out.println("Exception " + ex.getMessage());
+            ex.printStackTrace();
             return null;
         }
 
@@ -112,4 +114,35 @@ public class SensorController implements SensorControllerRemote, SensorControlle
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
 
+    
+      
+    @Override
+     public List<Sensor> retrieveFridgeSensor(long restaurantId) {
+        System.out.println("retrieve Sensor by restaurantId = " + restaurantId);
+        Query query = em.createQuery("SELECT r FROM Restaurant r WHERE r.id = :restaurantId");
+        query.setParameter("restaurantId", restaurantId);
+        Restaurant rest = ((Restaurant) query.getSingleResult());
+
+        
+        List<Sensor> fridgeSensor = new ArrayList<>();
+        List<Sensor> allSensor = rest.getSensors();
+        
+        for(Sensor s : allSensor){
+            if(s.getFridge() != null)
+                fridgeSensor.add(s);
+        }
+        
+        try {
+            if(!fridgeSensor.isEmpty())
+            System.out.println("Try Sensor= " + fridgeSensor.get(0).getSensorId());
+            
+            return fridgeSensor;
+        } catch (Exception ex) {
+
+            ex.printStackTrace();
+            System.out.println("Exception " + ex.getMessage());
+            return null;
+        }
+
+    }
 }

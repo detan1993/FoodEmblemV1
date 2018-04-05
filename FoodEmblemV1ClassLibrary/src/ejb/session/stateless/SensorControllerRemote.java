@@ -17,4 +17,6 @@ public interface SensorControllerRemote {
     public void updateFridgeTemp(Long restaurantId, Long fridgeId, double tempValue);
 
     public void updateContainerInventoryWeight(Long restaurantId, Long containerId, Inventory inventory);
+
+    public List<Sensor> retrieveFridgeSensor(long restaurantId);
 }

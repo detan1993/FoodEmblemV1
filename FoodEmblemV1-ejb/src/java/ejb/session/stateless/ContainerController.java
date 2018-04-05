@@ -70,6 +70,7 @@ public class ContainerController implements ContainerControllerRemote, Container
                     
         }catch(Exception ex)
         {
+            ex.printStackTrace();
             System.err.println("Error" + ex.getMessage());
             return null;
         }
