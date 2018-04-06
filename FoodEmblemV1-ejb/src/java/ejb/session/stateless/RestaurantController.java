@@ -61,7 +61,7 @@ public class RestaurantController implements RestaurantControllerRemote, Restaur
     
      @Override
      public List<OrderDish>retrieveCustomerOrders(long restaurantId){
-         Query q = em.createQuery("SELECT od FROM Restaurant r JOIN r.sensors s JOIN s.restaurantSeating rs JOIN rs.reservations rer JOIN rer.restCustOrders co JOIN co.orderDishes od  WHERE r.id = :restid AND rer.status = :status AND co.isCooked = :orderstatus");
+         Query q = em.createQuery("SELECT od FROM Restaurant r JOIN r.sensors s JOIN s.restaurantSeating rs JOIN rs.reservations rer JOIN rer.restCustOrders co JOIN co.orderDishes od  WHERE r.id = :restid AND rer.status = :status AND co.isCooked = :orderstatus ORDER BY od.orderId");
          q.setParameter("restid", restaurantId);
          q.setParameter("status", "Active");
          q.setParameter("orderstatus", false);

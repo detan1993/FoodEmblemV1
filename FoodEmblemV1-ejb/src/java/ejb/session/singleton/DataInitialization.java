@@ -206,16 +206,14 @@ public class DataInitialization {
       newRest.getSensors().add(promoSensor);
       
       
-      Reservation reservation = new Reservation(new Date(), "Active", 4, 4, null, newSeat2);
+      Reservation reservation = new Reservation(new Date(), "Active", 4, 4, null, newSeat1);
       reservationControllerLocal.createReservation(reservation, newCustomer1.getEmail(), newSeat1.getId());
-      
       RestaurantCustomerOrder order = new RestaurantCustomerOrder(49.95, new Date(), null, null,false);
       customerEntityControllerLocal.addCustomerOrder(order);
 
       OrderDish od1 = new OrderDish(3,order.getId(),newDish1.getId(),newDish1.getName());
       OrderDish od2 = new OrderDish(1,order.getId(),newDish1.getId(),newDish1.getName());
       OrderDish od3 = new OrderDish(4,order.getId(),newDish2.getId(),newDish2.getName());
-      
       orderDishControllerLocal.createOrderDish(od1);
       orderDishControllerLocal.createOrderDish(od2);
       orderDishControllerLocal.createOrderDish(od3);
@@ -225,20 +223,36 @@ public class DataInitialization {
       orderDishList.add(od2);
       orderDishList.add(od3);
       order.setOrderDishes(orderDishList);
-      
       newDish1.setOrderDishes(orderDishList);
+      newDish2.setOrderDishes(orderDishList);
       
       List<RestaurantCustomerOrder> orderList = new ArrayList<RestaurantCustomerOrder>();
       orderList.add(order);
       reservation.setRestCustOrders(orderList);
       
-      
+      Reservation reservation2 = new Reservation(new Date(), "Active",4,4,null,newSeat2);
+      reservationControllerLocal.createReservation(reservation2, newCustomer2.getEmail(), newSeat2.getId());
+      RestaurantCustomerOrder order2 = new RestaurantCustomerOrder(49.95, new Date(), null, null,false);
+      customerEntityControllerLocal.addCustomerOrder(order2);
 
-
+      OrderDish od4 = new OrderDish(1,order2.getId(),newDish2.getId(),newDish2.getName());
+      OrderDish od5 = new OrderDish(5,order2.getId(),newDish1.getId(),newDish1.getName());
+      OrderDish od6 = new OrderDish(3,order2.getId(),newDish2.getId(),newDish2.getName());
+      orderDishControllerLocal.createOrderDish(od4);
+      orderDishControllerLocal.createOrderDish(od5);
+      orderDishControllerLocal.createOrderDish(od6);
       
-     // System.out.println("New Employee ID " + newEmployee.getId() + " and " + newEmployee2.getId() + " are created");
+      List<OrderDish> orderDishList2 = new ArrayList<OrderDish>();
+      orderDishList2.add(od4);
+      orderDishList2.add(od5);
+      orderDishList2.add(od6);
+      order2.setOrderDishes(orderDishList2);
+      newDish1.setOrderDishes(orderDishList2);
+      newDish2.setOrderDishes(orderDishList2);
       
-      //customerEntityControllerLocal.createNewCustomer(newCustomer);
+      List<RestaurantCustomerOrder> orderList2 = new ArrayList<RestaurantCustomerOrder>();
+      orderList2.add(order2);
+      reservation2.setRestCustOrders(orderList2);
 
     }
     

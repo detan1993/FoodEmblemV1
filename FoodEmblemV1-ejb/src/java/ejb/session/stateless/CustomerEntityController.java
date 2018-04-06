@@ -188,7 +188,9 @@ public class CustomerEntityController implements CustomerEntityControllerRemote,
     @Override
     public void updateCustomerOrderCooked (long customerOrderId){
         RestaurantCustomerOrder order = retrieveSingleCustomerOrder(customerOrderId);
+        System.out.println(order.getisCooked());
         order.setisCooked(true);
         em.flush();
+        System.out.println(order.getisCooked());
     }
 }

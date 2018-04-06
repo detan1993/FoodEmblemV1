@@ -117,6 +117,7 @@ public class CustomerResource {
     {
         try
         {
+            System.out.println("GOING TO UPDATE CUSTOMER ORDER: " + orderId);
             long orderIdLong = Long.parseLong(orderId);
             customerEntityController.updateCustomerOrderCooked(orderIdLong);   
 
