@@ -178,5 +178,17 @@ public class CustomerEntityController implements CustomerEntityControllerRemote,
         return order;
     }
     
+    @Override
+    public RestaurantCustomerOrder retrieveSingleCustomerOrder(long customerOrderId) {
+        Query query = em.createQuery("SELECT r FROM RestaurantCustomerOrder r WHERE r.id=:customerOrderId");
+        query.setParameter("customerOrderId", customerOrderId);
+        return (RestaurantCustomerOrder) query.getResultList().get(0);
+    }
     
+    @Override
+    public void updateCustomerOrderCooked (long customerOrderId){
+        RestaurantCustomerOrder order = retrieveSingleCustomerOrder(customerOrderId);
+        order.setisCooked(true);
+        em.flush();
+    }
 }

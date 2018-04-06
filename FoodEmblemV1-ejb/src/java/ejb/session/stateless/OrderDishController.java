@@ -30,6 +30,7 @@ public class OrderDishController implements OrderDishControllerRemote, OrderDish
         em.persist(object);
     }
     
+    @Override
     public OrderDish createOrderDish(OrderDish od){
         em.persist(od);
         em.flush();

@@ -8,6 +8,7 @@ package ws;
 import datamodel.ws.CustomerOrderReq;
 import datamodel.ws.CustomerOrderRsp;
 import datamodel.ws.RetrieveCustomerAccountRsp;
+import datamodel.ws.UpdateRestaurantCustomerOrderCookedRsp;
 import ejb.session.stateless.CustomerEntityControllerLocal;
 import entity.Customer;
 import entity.OrderDish;
@@ -108,6 +109,26 @@ public class CustomerResource {
         }
     }
 
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("updateCustomerOrder/{orderId}")
+    public Response updateCustomerOrder(@PathParam("orderId") String orderId)
+    {
+        try
+        {
+            long orderIdLong = Long.parseLong(orderId);
+            customerEntityController.updateCustomerOrderCooked(orderIdLong);   
+
+            System.out.println("Updated Customer Order ID = " + orderId);         
+            return Response.status(Response.Status.OK).entity(new UpdateRestaurantCustomerOrderCookedRsp(true)).build(); 
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+            return Response.status(Response.Status.OK).entity(new UpdateRestaurantCustomerOrderCookedRsp(false)).build(); 
+        }
+    }
+    
     /**
      * PUT method for updating or creating an instance of CustomerResource
      * @param content representation for the resource

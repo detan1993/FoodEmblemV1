@@ -23,6 +23,7 @@ public class OrderDish implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    private String dishName;
     private int qty;
     private long orderId;
     private long dishId;
@@ -30,10 +31,11 @@ public class OrderDish implements Serializable {
     public OrderDish() {
     }
 
-    public OrderDish(int qty,long orderId, long dishId) {
+    public OrderDish(int qty,long orderId, long dishId, String dishName) {
         this.qty = qty;
         this.orderId = orderId;
         this.dishId = dishId;
+        this.dishName = dishName;
     }
 
     public Long getId() {
@@ -99,5 +101,14 @@ public class OrderDish implements Serializable {
         this.orderId = orderId;
     }
 
+    public String getDishName() {
+        return dishName;
+    }
+
+    public void setDishName(String dishName) {
+        this.dishName = dishName;
+    }
+
+    
     
 }

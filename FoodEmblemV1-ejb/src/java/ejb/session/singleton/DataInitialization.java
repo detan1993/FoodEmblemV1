@@ -212,15 +212,18 @@ public class DataInitialization {
       RestaurantCustomerOrder order = new RestaurantCustomerOrder(49.95, new Date(), null, null,false);
       customerEntityControllerLocal.addCustomerOrder(order);
 
-      OrderDish od1 = new OrderDish(3,order.getId(),newDish1.getId());
-      OrderDish od2 = new OrderDish(1,order.getId(),newDish1.getId());
+      OrderDish od1 = new OrderDish(3,order.getId(),newDish1.getId(),newDish1.getName());
+      OrderDish od2 = new OrderDish(1,order.getId(),newDish1.getId(),newDish1.getName());
+      OrderDish od3 = new OrderDish(4,order.getId(),newDish2.getId(),newDish2.getName());
       
       orderDishControllerLocal.createOrderDish(od1);
       orderDishControllerLocal.createOrderDish(od2);
+      orderDishControllerLocal.createOrderDish(od3);
       
       List<OrderDish> orderDishList = new ArrayList<OrderDish>();
       orderDishList.add(od1);
       orderDishList.add(od2);
+      orderDishList.add(od3);
       order.setOrderDishes(orderDishList);
       
       newDish1.setOrderDishes(orderDishList);
