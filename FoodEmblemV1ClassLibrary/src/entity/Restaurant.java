@@ -37,7 +37,7 @@ public class Restaurant implements Serializable {
     @OneToMany
     private List<Dish> dishes;
     
-    @OneToMany(mappedBy = "restaurant")
+    @OneToMany
     private List<Promotion> promotions;
     
     @OneToMany(mappedBy = "restaurant")

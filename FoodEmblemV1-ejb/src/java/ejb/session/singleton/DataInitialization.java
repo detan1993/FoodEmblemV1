@@ -199,7 +199,7 @@ public class DataInitialization {
       Restaurant newRest = restaurantControllerLocal.createRestaurant(new Restaurant("Restaurant A" , "65167812" , "Restaurant A Address " ,  "343231" , "restA@gmail.com" , "122453tedgyr@h9" , sensors , dishes));
        //creating promotion for newRest
       String desc = "Enjoy 30% for all dinner items only from 8pm to 10pm!";
-      Promotion promotion = promotionControllerLocal.createPromotion(new Promotion(desc,30.00,new Date(),new Date(),newRest ));
+      Promotion promotion = promotionControllerLocal.createPromotion(new Promotion(desc,30.00,new Date(),new Date(),newRest.getId()));
       Sensor promoSensor = sensorControllerLocal.createSensor(new Sensor("47712_24497","Promotion" , 15.0, "This is promotion sensor used by Restaurant A"));
       RestaurantEmployee newEmployee = restaurantEmployeeControllerLocal.createEmployee(new RestaurantEmployee("Emp A" , "Ln A" , 'M' , "EmpA@RestA.com" , "12345678" , "Manager" , newRest));
       RestaurantEmployee newEmployee2 = restaurantEmployeeControllerLocal.createEmployee(new RestaurantEmployee("Emp B", "Ln B" , 'F', "EmpB@RestA.com" , "12345678" , "Kicthen" , newRest ));

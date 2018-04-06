@@ -52,7 +52,7 @@ public class PromotionController implements PromotionControllerRemote, Promotion
          Promotion newpromo = createPromotion(newPromotion);
          Restaurant r = restaurantControllerLocal.retrieveRestaurantById(restaurantid);
          r.getPromotions().add(newpromo);
-         newpromo.setRestaurant(r);
+         newpromo.setRestid(r.getId());
          return newpromo;
      }
     
@@ -76,6 +76,8 @@ public class PromotionController implements PromotionControllerRemote, Promotion
          boolean deletesuccessful = false;
          try {
          Promotion p = em.find(Promotion.class, promotionId);
+         Restaurant r = em.find(Restaurant.class, p.getRestid());
+         r.getPromotions().remove(p);
          em.remove(p);
          deletesuccessful = true;
          }
@@ -100,7 +102,7 @@ public class PromotionController implements PromotionControllerRemote, Promotion
     @Override
     public List<Promotion> retrievePromotionsByRestaurantId(long restaurantId)
     {
-        Query query = em.createQuery("SELECT p FROM Promotion p WHERE p.restaurant.id =:restaurantId");
+        Query query = em.createQuery("SELECT p FROM Promotion p WHERE p.restid =:restaurantId");
         query.setParameter("restaurantId", restaurantId);
        
         try{
@@ -128,7 +130,7 @@ public class PromotionController implements PromotionControllerRemote, Promotion
         Promotion emptyData = new Promotion();
         emptyData.setId(null);
         emptyData.setPromotionPercentage(0);
-        emptyData.setRestaurant(null);
+        //emptyData.setRestaurant(null);
         emptyData.setStartDateTime(null);
         emptyData.setEndDateTime(null);
         emptyDatas.add(emptyData);

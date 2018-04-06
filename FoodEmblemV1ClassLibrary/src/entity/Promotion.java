@@ -34,8 +34,7 @@ public class Promotion implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date endDateTime;
     
-    @ManyToOne
-    private Restaurant restaurant;
+    private long restid;
 
     private String description;
     
@@ -43,12 +42,12 @@ public class Promotion implements Serializable {
        
     }
 
-    public Promotion(String description, double promotionPercentage, Date startDateTime, Date endDateTime, Restaurant restaurant) { 
+    public Promotion(String description, double promotionPercentage, Date startDateTime, Date endDateTime, long restid) { 
         this.description = description;
         this.promotionPercentage = promotionPercentage;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
-        this.restaurant = restaurant;
+        this.restid = restid;
     }
 
     
@@ -130,20 +129,6 @@ public class Promotion implements Serializable {
     }
 
     /**
-     * @return the restaurant
-     */
-    public Restaurant getRestaurant() {
-        return restaurant;
-    }
-
-    /**
-     * @param restaurant the restaurant to set
-     */
-    public void setRestaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
-    }
-
-    /**
      * @return the description
      */
     public String getDescription() {
@@ -155,6 +140,20 @@ public class Promotion implements Serializable {
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * @return the restid
+     */
+    public long getRestid() {
+        return restid;
+    }
+
+    /**
+     * @param restid the restid to set
+     */
+    public void setRestid(long restid) {
+        this.restid = restid;
     }
     
 }
