@@ -20,4 +20,6 @@ public interface CustomerEntityControllerLocal {
     public RestaurantCustomerOrder addCustomerOrder(String email, List<OrderDish>orderDishes, Double total);
     public Sensor retrieveReservationSeating(String email);
     public RestaurantCustomerOrder addCustomerOrder(RestaurantCustomerOrder order);
+    public RestaurantCustomerOrder retrieveSingleCustomerOrder(long customerOrderId);
+    public void updateCustomerOrderCooked (long customerOrderId);
 }
