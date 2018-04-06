@@ -11,7 +11,9 @@ import java.util.List;
 
 public interface PromotionControllerLocal {
       public Promotion createPromotion(Promotion newPromotion);
-
+      public Boolean deletePromotion(long promotionId);
+      public Promotion updatePromotion (Promotion oldPromotion);
+      public Promotion createRestaurantPromotion(Promotion newPromotion, long restaurantid);
     public List<Promotion> retrievePromotionsByRestaurantId(long restaurantId);
-    public Promotion retrieveRestaurantPromoFromBeacon(int major, int minor);
+    public Promotion retrieveRestaurantPromoFromBeacon(String sensorId);
 }

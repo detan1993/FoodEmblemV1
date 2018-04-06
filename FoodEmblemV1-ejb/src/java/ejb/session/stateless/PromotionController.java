@@ -6,8 +6,10 @@
 package ejb.session.stateless;
 
 import entity.Promotion;
+import entity.Restaurant;
 import java.util.ArrayList;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
@@ -26,6 +28,8 @@ public class PromotionController implements PromotionControllerRemote, Promotion
 
     @PersistenceContext(unitName = "FoodEmblemV1-ejbPU")
     private EntityManager em;
+    @EJB(name = "RestaurantControllerLocal")
+    private RestaurantControllerLocal restaurantControllerLocal;
 
     public void persist(Object object) {
         em.persist(object);
@@ -37,20 +41,25 @@ public class PromotionController implements PromotionControllerRemote, Promotion
     @Override
     public Promotion createPromotion(Promotion newPromotion)
     {
-        
         em.persist(newPromotion);
         em.flush();
         em.refresh(newPromotion);
-        
         return newPromotion;
-        
     }
     
     @Override
-    public Promotion retrieveRestaurantPromoFromBeacon(int major, int minor){
-        Query q = em.createQuery("SELECT p FROM Promotion p JOIN p.restaurant r JOIN r.sensors s WHERE s.major = :major AND s.minor = :minor");
-        q.setParameter("major", major);
-        q.setParameter("minor", minor);
+     public Promotion createRestaurantPromotion(Promotion newPromotion, long restaurantid){
+         Promotion newpromo = createPromotion(newPromotion);
+         Restaurant r = restaurantControllerLocal.retrieveRestaurantById(restaurantid);
+         r.getPromotions().add(newpromo);
+         newpromo.setRestaurant(r);
+         return newpromo;
+     }
+    
+    @Override
+    public Promotion retrieveRestaurantPromoFromBeacon(String sensorId){
+        Query q = em.createQuery("SELECT p FROM Promotion p JOIN p.restaurant r JOIN r.sensors s WHERE s.sensorId = :sensorId");
+        q.setParameter("sensorId", sensorId);
         Promotion p = new Promotion();
         if (q.getResultList().size() > 0){
             p = (Promotion)q.getResultList().get(0);
@@ -61,6 +70,32 @@ public class PromotionController implements PromotionControllerRemote, Promotion
         
         return p;
     }
+    
+    @Override
+     public Boolean deletePromotion(long promotionId){
+         boolean deletesuccessful = false;
+         try {
+         Promotion p = em.find(Promotion.class, promotionId);
+         em.remove(p);
+         deletesuccessful = true;
+         }
+         catch (Exception ex){
+             ex.printStackTrace();
+         }
+         return deletesuccessful;
+     }
+     
+     @Override
+      public Promotion updatePromotion (Promotion oldpromo){
+         Promotion promo = em.find(Promotion.class, oldpromo.getId());
+         promo.setDescription(oldpromo.getDescription());
+         promo.setStartDateTime(oldpromo.getStartDateTime());
+         promo.setEndDateTime(oldpromo.getEndDateTime());
+         promo.setPromotionPercentage(oldpromo.getPromotionPercentage());
+         em.flush();
+         em.refresh(promo);
+         return promo;
+      }
     
     @Override
     public List<Promotion> retrievePromotionsByRestaurantId(long restaurantId)

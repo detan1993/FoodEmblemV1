@@ -15,35 +15,35 @@ import javax.xml.bind.annotation.XmlType;
  * @author David
  */
 @XmlRootElement
-@XmlType(name = "customerOrderRsp", propOrder = {
-    "customerorder"
+@XmlType(name = "CustomerOrderRsp", propOrder = {
+    "restCustOrder"
 })
 
 public class CustomerOrderRsp  implements Serializable  {
     private static final long serialVersionUID = 1L;
     
-    private RestaurantCustomerOrder customerorder;
+    private RestaurantCustomerOrder restCustOrder;
 
     public CustomerOrderRsp() {
     }
     
     
-    public CustomerOrderRsp(RestaurantCustomerOrder customerorder) {
-        this.customerorder = customerorder;
+    public CustomerOrderRsp(RestaurantCustomerOrder restCustOrder) {
+        this.restCustOrder = restCustOrder;
     }
-
+ 
     /**
      * @return the customerorder
      */
     public RestaurantCustomerOrder getCustomerorder() {
-        return customerorder;
+        return restCustOrder;
     }
 
     /**
-     * @param customerorder the customerorder to set
+     * @param restCustOrder the restCustOrder to set
      */
-    public void setCustomerorder(RestaurantCustomerOrder customerorder) {
-        this.customerorder = customerorder;
+    public void setCustomerorder(RestaurantCustomerOrder restCustOrder) {
+        this.restCustOrder = restCustOrder;
     }
 
    

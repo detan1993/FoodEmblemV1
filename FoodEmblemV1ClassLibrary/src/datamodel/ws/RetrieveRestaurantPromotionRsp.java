@@ -18,12 +18,12 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
 @XmlType(name = "retrieveRestaurantPromotionRsp", propOrder = {
-    "promotions" , "promotion"
+    "promotions" , "promotion", "deleteSuccess"
 })
 public class RetrieveRestaurantPromotionRsp implements Serializable {
         
         private static final long serialVersionUID = 1L;
-    
+    private Boolean deleteSuccess;
      private List<Promotion> promotions;
      private Promotion promotion;
 
@@ -38,6 +38,9 @@ public class RetrieveRestaurantPromotionRsp implements Serializable {
         this.promotions = promotions;
     }
      
+    public RetrieveRestaurantPromotionRsp(Boolean deleteSuccess){
+        this.deleteSuccess = deleteSuccess;
+    }
     /**
      * @return the promotions
      */
@@ -64,5 +67,19 @@ public class RetrieveRestaurantPromotionRsp implements Serializable {
      */
     public void setPromotion(Promotion promotion) {
         this.promotion = promotion;
+    }
+
+    /**
+     * @return the deleteSuccess
+     */
+    public Boolean getDeleteSuccess() {
+        return deleteSuccess;
+    }
+
+    /**
+     * @param deleteSuccess the deleteSuccess to set
+     */
+    public void setDeleteSuccess(Boolean deleteSuccess) {
+        this.deleteSuccess = deleteSuccess;
     }
 }

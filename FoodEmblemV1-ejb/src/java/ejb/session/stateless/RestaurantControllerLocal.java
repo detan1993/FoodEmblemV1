@@ -15,8 +15,8 @@ public interface RestaurantControllerLocal {
        public Restaurant createRestaurant(Restaurant newRestaurant);
 
     public List<Restaurant> retrieveRestaurant();
-    public Restaurant retrieveRestaurantById(int id);
+    public Restaurant retrieveRestaurantById(long id);
 
     public List<Restaurant> retrievePartnerRestaurant(List<String> restApiKeys);
-     public List<OrderDish>retrieveCustomerOrders(int restaurantId);
+     public List<OrderDish>retrieveCustomerOrders(long restaurantId);
 }

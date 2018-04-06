@@ -11,7 +11,6 @@ import datamodel.ws.RetrieveCustomerAccountRsp;
 import ejb.session.stateless.CustomerEntityControllerLocal;
 import entity.Customer;
 import entity.OrderDish;
-import entity.Reservation;
 import entity.RestaurantCustomerOrder;
 import java.util.List;
 import java.util.logging.Level;
@@ -23,6 +22,7 @@ import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
@@ -77,7 +77,7 @@ public class CustomerResource {
         }
     }
     
-    @PUT
+    @POST
     @Consumes({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
     @Produces(MediaType.APPLICATION_JSON)
     @Path("AddCustomerOrder")
