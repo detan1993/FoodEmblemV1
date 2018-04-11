@@ -92,9 +92,21 @@ public class RestaurantSeatingController implements RestaurantSeatingControllerR
             System.err.println("Error" + ex.getMessage());
             return null;
         }
-        
-        
     }
-        
     
+    @Override
+    public List<Integer> retrieveActiveSeatsByRestaurantId(long restaurantId)
+    {
+        Query query = em.createQuery("SELECT rer.noOfPaxSeated FROM Restaurant r JOIN r.sensors s JOIN s.restaurantSeating rs JOIN rs.reservations rer WHERE r.id =:restaurantId AND rer.noOfPaxSeated>0 AND rer.status='Active'");
+        query.setParameter("restaurantId", restaurantId);
+        return query.getResultList();
+    }
+    
+    @Override
+    public long retrieveCountAllSeating(long restaurantId)
+    {
+        Query query = em.createQuery("SELECT count(rs.id) FROM Restaurant r JOIN r.sensors s JOIN s.restaurantSeating rs WHERE r.id =:restaurantId");
+        query.setParameter("restaurantId", restaurantId);
+        return (long)query.getSingleResult();
+    }
 }
