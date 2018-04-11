@@ -17,6 +17,7 @@
     <class>entity.RestaurantSeating</class>
     <class>entity.Sensor</class>
     <class>entity.Supplier</class>
+    <class>entity.CallWaiter</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>

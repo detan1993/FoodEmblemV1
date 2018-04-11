@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlRootElement
 @XmlType(name = "reservationRsp", propOrder = {
-    "reservation" , "reservationSeating"
+    "reservation" , "reservationSeating", "finishsuccess"
 })
 
 public class ReservationRsp  implements Serializable  {
@@ -25,6 +25,7 @@ public class ReservationRsp  implements Serializable  {
     
     private Reservation reservation;
     private Sensor reservationSeating;
+    private Boolean finishsuccess;
 
     public ReservationRsp() {
     }
@@ -35,6 +36,9 @@ public class ReservationRsp  implements Serializable  {
     
     public ReservationRsp(Reservation reservation) {
         this.reservation = reservation;
+    }
+    public ReservationRsp(Boolean finishsuccess){
+        this.finishsuccess = finishsuccess;
     }
 
     /**
@@ -64,6 +68,20 @@ public class ReservationRsp  implements Serializable  {
      */
     public void setReservationSeating(Sensor reservationSeating) {
         this.reservationSeating = reservationSeating;
+    }
+
+    /**
+     * @return the finishsuccess
+     */
+    public Boolean getFinishsuccess() {
+        return finishsuccess;
+    }
+
+    /**
+     * @param finishsuccess the finishsuccess to set
+     */
+    public void setFinishsuccess(Boolean finishsuccess) {
+        this.finishsuccess = finishsuccess;
     }
     
     

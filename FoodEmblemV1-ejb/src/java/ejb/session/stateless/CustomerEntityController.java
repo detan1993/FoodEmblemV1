@@ -143,13 +143,18 @@ public class CustomerEntityController implements CustomerEntityControllerRemote,
                 orderdish.setDishId(dishkey);
                 //orderdish.setRestCustOrder(restcustorder);
                // orderdish.setDish(dish);
+               
                 orderdish.setQty(quantity);  
+                orderdish.setOrderId(restcustorder.getId());
+                orderdish.setDishName(dish.getName());
+                orderdish.setDishId(dishkey);
                 em.persist(orderdish);
+                dish.getOrderDishes().add(orderdish);
                 restcustorder.getOrderDishes().add(orderdish);
                 em.flush();
                 orderlist.add(orderdish);
-             }
-             q = em.createQuery("SELECT p FROM Promotion p JOIN p.restaurant r JOIN r.dishes d WHERE d.id = :dishkey");
+             } 
+             q = em.createQuery("SELECT p FROM Promotion p WHERE p.restid = (SELECT r.id FROM Restaurant r JOIN r.dishes d WHERE d.id = :dishkey)");
              q.setParameter("dishkey", dishkey);
              if (q.getResultList().size() > 0){
                  Promotion promotion = (Promotion) q.getResultList().get(0);

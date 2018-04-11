@@ -6,15 +6,14 @@
 package ws;
 
 import datamodel.ws.PromotionReq;
-import datamodel.ws.ReservationRsp;
 import datamodel.ws.RetrieveRestaurantPromotionRsp;
 import ejb.session.stateless.PromotionControllerLocal;
 import entity.Promotion;
-import entity.Reservation;
-import java.util.Date;
+import entity.Restaurant;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.util.Pair;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.ws.rs.core.Context;
@@ -73,15 +72,17 @@ public class PromotionResource {
     }
     
     @GET
-    @Consumes(MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.TEXT_PLAIN) 
     @Produces(MediaType.APPLICATION_JSON)
     @Path("retrieveRestaurantPromoFromBeacon/{sensorId}")
      public Response retrieveRestaurantPromoFromBeacon(@PathParam("sensorId") String sensorId){
          try{
-             Promotion promo = promotionController.retrieveRestaurantPromoFromBeacon(sensorId);
-             if (promo != null){
-               System.out.println("Promo desc is " + promo.getDescription());
-             return Response.status(Response.Status.OK).entity(new RetrieveRestaurantPromotionRsp(promo)).build();   
+             Pair<Promotion,Restaurant>prpair = promotionController.retrieveRestaurantPromoFromBeacon(sensorId);
+             if (prpair != null){
+                 Promotion promo = prpair.getKey(); 
+                 Restaurant rest = prpair.getValue();
+                 System.out.println("Promo desc is " + promo.getDescription());
+                 return Response.status(Response.Status.OK).entity(new RetrieveRestaurantPromotionRsp(promo,rest)).build();   
              }
              else {
                     return Response.status(Response.Status.BAD_REQUEST).entity(new RetrieveRestaurantPromotionRsp()).build();

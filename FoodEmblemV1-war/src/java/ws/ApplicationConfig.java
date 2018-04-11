@@ -30,6 +30,7 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(ws.CORSFilter.class);
+        resources.add(ws.CallWaiterResource.class);
         resources.add(ws.CustomerReservationResource.class);
         resources.add(ws.CustomerResource.class);
         resources.add(ws.FoodEmblemResource.class);

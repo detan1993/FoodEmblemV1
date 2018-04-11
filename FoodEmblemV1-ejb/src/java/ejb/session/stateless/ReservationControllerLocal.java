@@ -14,4 +14,5 @@ public interface ReservationControllerLocal {
       public List<Reservation>getCustomerReservations(String customerEmail, String status);
       public List <String> getRestaurantNameFromReservation(List<Reservation>reservationList);
       public Boolean checkCustomerHasReservation(String email);
+      public boolean finishReservation(long id);
 }

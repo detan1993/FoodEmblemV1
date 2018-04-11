@@ -126,6 +126,21 @@ CustomerEntityControllerLocal customerentitycontroller = lookupCustomerEntityCon
         }
     }
     
+    @GET
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("finishReservation/{id}")
+    public Response finishReservation(@PathParam("id")long rsid){
+         try{
+            Boolean success = reservationController.finishReservation(rsid);
+             return Response.status(Response.Status.OK).entity(new ReservationRsp(success)).build();
+         }
+         catch (Exception ex){
+             ex.printStackTrace();
+         }
+         return Response.status(Response.Status.BAD_REQUEST).entity(new ReservationRsp(false)).build();
+     }
+    
     @PUT
     @Consumes({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
     @Produces(MediaType.APPLICATION_JSON)

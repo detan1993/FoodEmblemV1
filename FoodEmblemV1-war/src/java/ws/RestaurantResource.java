@@ -50,7 +50,7 @@ public class RestaurantResource {
     @GET
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("retrieveAllRestaurants/")
+    @Path("retrieveAllRestaurants")
     public Response retrieveAllRestaurants()
     {
         try

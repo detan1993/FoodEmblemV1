@@ -111,4 +111,17 @@ public class ReservationController implements ReservationControllerRemote, Reser
         }
         return restNames;
     }
+    
+    @Override
+    public boolean finishReservation(long id){
+        boolean updatesuccess = false;
+        Query q = em.createQuery("SELECT r FROM Reservation r JOIN r.restSeating rs WHERE rs.id = :rsid AND r.status=:active");
+        q.setParameter("rsid", id);
+        q.setParameter("active", "Active");
+        Reservation r = (Reservation)q.getSingleResult();
+        r.setNoOfPaxSeated(0);
+        r.setStatus("Inactive");
+        em.merge(r);
+        return updatesuccess;
+    }
 }

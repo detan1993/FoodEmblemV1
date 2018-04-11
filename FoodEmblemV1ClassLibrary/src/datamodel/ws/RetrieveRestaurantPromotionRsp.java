@@ -6,6 +6,7 @@
 package datamodel.ws;
 
 import entity.Promotion;
+import entity.Restaurant;
 import java.io.Serializable;
 import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -18,7 +19,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
 @XmlType(name = "retrieveRestaurantPromotionRsp", propOrder = {
-    "promotions" , "promotion", "deleteSuccess"
+    "promotions" , "promotion", "deleteSuccess", "restaurant"
 })
 public class RetrieveRestaurantPromotionRsp implements Serializable {
         
@@ -26,12 +27,18 @@ public class RetrieveRestaurantPromotionRsp implements Serializable {
     private Boolean deleteSuccess;
      private List<Promotion> promotions;
      private Promotion promotion;
+     private Restaurant restaurant;
 
     public RetrieveRestaurantPromotionRsp() {
     }
 
     public RetrieveRestaurantPromotionRsp(Promotion promotion){
         this.promotion = promotion;
+    }
+    
+    public RetrieveRestaurantPromotionRsp(Promotion promotion,Restaurant restaurant){
+        this.promotion = promotion;
+        this.restaurant = restaurant;
     }
     
     public RetrieveRestaurantPromotionRsp(List<Promotion> promotions) {
@@ -81,5 +88,19 @@ public class RetrieveRestaurantPromotionRsp implements Serializable {
      */
     public void setDeleteSuccess(Boolean deleteSuccess) {
         this.deleteSuccess = deleteSuccess;
+    }
+
+    /**
+     * @return the restaurant
+     */
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    /**
+     * @param restaurant the restaurant to set
+     */
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
 }

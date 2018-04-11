@@ -9,6 +9,7 @@ import entity.Promotion;
 import entity.Restaurant;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.util.Pair;
 import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Remote;
@@ -57,18 +58,28 @@ public class PromotionController implements PromotionControllerRemote, Promotion
      }
     
     @Override
-    public Promotion retrieveRestaurantPromoFromBeacon(String sensorId){
-        Query q = em.createQuery("SELECT p FROM Promotion p JOIN p.restaurant r JOIN r.sensors s WHERE s.sensorId = :sensorId");
+    public Pair<Promotion,Restaurant> retrieveRestaurantPromoFromBeacon(String sensorId){
+        Query q = em.createQuery("SELECT p FROM Promotion p WHERE p.restid = (SELECT r.id FROM Restaurant r JOIN r.sensors s WHERE s.sensorType =:type AND s.sensorId = :sensorId)");
         q.setParameter("sensorId", sensorId);
+        q.setParameter("type", "Promotion");
         Promotion p = new Promotion();
+        Restaurant r = new Restaurant();
         if (q.getResultList().size() > 0){
             p = (Promotion)q.getResultList().get(0);
         }
-        else {
-            p = null;
+         else {
+            p = null; 
         }
-        
-        return p;
+        Query q1 = em.createQuery("SELECT r FROM Restaurant r WHERE r.id = (SELECT r.id FROM Restaurant r JOIN r.sensors s WHERE s.sensorId = :sensorId)");
+        q1.setParameter("sensorId", sensorId);
+        if (q1.getResultList().size() > 0){
+              r = (Restaurant)q1.getResultList().get(0);
+        }
+        else {
+            r = null;
+        }
+        Pair<Promotion,Restaurant>pair = new Pair<>(p,r);
+        return pair;
     }
     
     @Override

@@ -6,7 +6,9 @@
 package ejb.session.stateless;
 
 import entity.Promotion;
+import entity.Restaurant;
 import java.util.List;
+import javafx.util.Pair;
 
 
 public interface PromotionControllerLocal {
@@ -15,5 +17,5 @@ public interface PromotionControllerLocal {
       public Promotion updatePromotion (Promotion oldPromotion);
       public Promotion createRestaurantPromotion(Promotion newPromotion, long restaurantid);
     public List<Promotion> retrievePromotionsByRestaurantId(long restaurantId);
-    public Promotion retrieveRestaurantPromoFromBeacon(String sensorId);
+    public Pair<Promotion,Restaurant> retrieveRestaurantPromoFromBeacon(String sensorId);
 }
