@@ -8,6 +8,7 @@ package ws;
 import datamodel.ws.CustomerOrderReq;
 import datamodel.ws.CustomerOrderRsp;
 import datamodel.ws.RetrieveCustomerAccountRsp;
+import datamodel.ws.UpdateRestaurantCustomerOrderCookedReq;
 import datamodel.ws.UpdateRestaurantCustomerOrderCookedRsp;
 import ejb.session.stateless.CustomerEntityControllerLocal;
 import entity.Customer;
@@ -110,16 +111,20 @@ public class CustomerResource {
     }
 
     @POST
-    @Consumes(MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("updateCustomerOrder/{orderId}")
-    public Response updateCustomerOrder(@PathParam("orderId") String orderId)
+    @Path("updateCustomerOrder")
+    public Response updateCustomerOrder(JAXBElement<UpdateRestaurantCustomerOrderCookedReq> jaxbUpdateRestaurantCustomerOrderCookedReq)
     {
-        try
+        System.out.println("CustomerResource.updateCustomerOrder() called");
+        if((jaxbUpdateRestaurantCustomerOrderCookedReq !=null) && (jaxbUpdateRestaurantCustomerOrderCookedReq.getValue() != null))
         {
+            try
+        {
+            UpdateRestaurantCustomerOrderCookedReq orderReq = jaxbUpdateRestaurantCustomerOrderCookedReq.getValue();
+            long orderId = orderReq.getOrderId();
             System.out.println("GOING TO UPDATE CUSTOMER ORDER: " + orderId);
-            long orderIdLong = Long.parseLong(orderId);
-            customerEntityController.updateCustomerOrderCooked(orderIdLong);   
+            customerEntityController.updateCustomerOrderCooked(orderId);   
 
             System.out.println("Updated Customer Order ID = " + orderId);         
             return Response.status(Response.Status.OK).entity(new UpdateRestaurantCustomerOrderCookedRsp(true)).build(); 
@@ -127,6 +132,9 @@ public class CustomerResource {
         catch (Exception ex){
             ex.printStackTrace();
             return Response.status(Response.Status.OK).entity(new UpdateRestaurantCustomerOrderCookedRsp(false)).build(); 
+        }
+        }else{
+             return Response.status(Response.Status.BAD_REQUEST).entity("Invalid register request").build();
         }
     }
     
