@@ -5,9 +5,12 @@
  */
 package ws;
 
+import datamodel.ws.RetrieveCountAllSeatingRsp;
 import datamodel.ws.RetrieveCustomerOrdersRsp;
+import datamodel.ws.RetrieveRestaurantSeatingActiveRsp;
 import datamodel.ws.RetrieveRestaurantsRsp;
 import ejb.session.stateless.RestaurantControllerLocal;
+import ejb.session.stateless.RestaurantSeatingControllerLocal;
 import entity.OrderDish;
 import entity.Restaurant;
 import java.util.List;
@@ -15,7 +18,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
@@ -23,6 +25,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -35,6 +38,7 @@ import javax.ws.rs.core.Response;
 public class RestaurantResource {
 
     RestaurantControllerLocal restaurantController = lookupRestaurantControllerLocal();
+    RestaurantSeatingControllerLocal restaurantSeatingControllerLocal = lookupRestaurantSeatingControllerLocal();
 
     @Context
     private UriInfo context;
@@ -100,7 +104,39 @@ public class RestaurantResource {
         }
     }
 
+    @GET
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("retrieveActiveSeating/{restid}")
+    public Response retrieveActiveSeating(@PathParam("restid") int restid){
+        try {
+            List<Integer> rs = restaurantSeatingControllerLocal.retrieveActiveSeatsByRestaurantId(restid);
+            return Response.status(Response.Status.OK).entity(new RetrieveRestaurantSeatingActiveRsp(rs)).build();
+        }
+        catch (Exception ex)
+        {
+            System.err.print(ex.toString());
+            return Response.status(Response.Status.BAD_REQUEST).entity(new RetrieveRestaurantSeatingActiveRsp()).build();
+        }
+    }
 
+    
+    @GET
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("retrieveCountAllSeating/{restid}")
+    public Response retrieveCountAllSeating(@PathParam("restid") int restid){
+        try {
+            long rsCount = restaurantSeatingControllerLocal.retrieveCountAllSeating(restid);
+            return Response.status(Response.Status.OK).entity(new RetrieveCountAllSeatingRsp(rsCount)).build();
+        }
+        catch (Exception ex)
+        {
+            System.err.print(ex.toString());
+            return Response.status(Response.Status.BAD_REQUEST).entity(new RetrieveCountAllSeatingRsp()).build();
+        }
+    }
+    
     /**
      * PUT method for updating or creating an instance of RestaurantResource
      * @param content representation for the resource
@@ -114,6 +150,16 @@ public class RestaurantResource {
         try {
             javax.naming.Context c = new InitialContext();
             return (RestaurantControllerLocal) c.lookup("java:global/FoodEmblemV1/FoodEmblemV1-ejb/RestaurantController!ejb.session.stateless.RestaurantControllerLocal");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+    
+     private RestaurantSeatingControllerLocal lookupRestaurantSeatingControllerLocal() {
+        try {
+            javax.naming.Context c = new InitialContext();
+            return (RestaurantSeatingControllerLocal) c.lookup("java:global/FoodEmblemV1/FoodEmblemV1-ejb/RestaurantSeatingController!ejb.session.stateless.RestaurantSeatingControllerLocal");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
