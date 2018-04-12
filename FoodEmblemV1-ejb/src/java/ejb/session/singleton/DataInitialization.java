@@ -164,12 +164,12 @@ public class DataInitialization {
       
       
       List<Sensor> sensors = new ArrayList<>();
-      Sensor newSensor1 = sensorControllerLocal.createSensor(new Sensor("33083_34852" , "Beacon" , 10.0 , newSeat1, "Restaurant Seating"));
+      Sensor newSensor1 = sensorControllerLocal.createSensor(new Sensor("13844_6706" , "Beacon" , 10.0 , newSeat1, "Restaurant Seating"));
       //sensorControllerLocal.createSensor(new Sensor("47712_24497","Promotion" , 15.0, "This is promotion sensor used by Restaurant A"));
     
      //   Sensor newSensor1 =sensorControllerLocal.createSensor(new Sensor("47712_244497" , "Beacon" , 10.0 , newSeat1, "Restaurant Seating"  ));
       //sensorControllerLocal.createSensor(new Sensor("Beacons 1 ID" , "Beacon" , 10.0 , newSeat1, 47712, 24497));
-      Sensor newSensor2 =  sensorControllerLocal.createSensor(new Sensor("21187_39875" , "Beacon" , 10.0 , newSeat2, "Restaurant Seating"  ));
+      Sensor newSensor2 =  sensorControllerLocal.createSensor(new Sensor("33083_34852" , "Beacon" , 10.0 , newSeat2, "Restaurant Seating"  ));
     //sensorControllerLocal.createSensor(new Sensor("Beacpns 2 ID", "Beacon" , 10.0 , newSeat2, 21187,39875));
       
       Sensor newSensor3 = sensorControllerLocal.createSensor(new Sensor("D3:8D:51:5B:43:37" , "Microbit" , 7.0 , newFridge, "Temperature Sensor"));
