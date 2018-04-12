@@ -7,6 +7,7 @@ package ws;
 
 import datamodel.ws.CustomerOrderReq;
 import datamodel.ws.CustomerOrderRsp;
+import datamodel.ws.RegisterCustomerReq;
 import datamodel.ws.RetrieveCustomerAccountRsp;
 import datamodel.ws.UpdateRestaurantCustomerOrderCookedReq;
 import datamodel.ws.UpdateRestaurantCustomerOrderCookedRsp;
@@ -52,6 +53,34 @@ public class CustomerResource {
     public CustomerResource() {
     }
     
+    @POST
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("RegisterCustomer")
+    public Response RegisterCustomer(JAXBElement<RegisterCustomerReq> jaxbregcustReq)
+    {
+         
+          if((jaxbregcustReq != null) && (jaxbregcustReq.getValue() != null))
+          {
+            try
+            {
+                
+                RegisterCustomerReq regReq = jaxbregcustReq.getValue();
+                Customer c = regReq.getCustomer();
+                Customer newcust = customerEntityController.createNewCustomer(c);
+                System.out.println("Customer " + newcust.getEmail() + " created");         
+                return Response.status(Response.Status.OK).entity(new RegisterCustomerReq(newcust)).build(); 
+            }
+            catch (Exception ex){
+                 ex.printStackTrace();
+                 return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+            }
+          }
+          else
+        {
+            return Response.status(Response.Status.BAD_REQUEST).entity("Invalid register request").build();
+        }
+    }
     
     @GET
     @Consumes(MediaType.TEXT_PLAIN)
