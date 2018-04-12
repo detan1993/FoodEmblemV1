@@ -39,12 +39,13 @@ private CallWaiterControllerLocal callwaitercontroller;
     @PostConstruct
     public void postConstruct()
     {
-        setListofrequests(callwaitercontroller.GetRestaurantWaiterRequests());
+        listofrequests = callwaitercontroller.GetRestaurantWaiterRequests();
+        System.out.println("************* requets  " +  listofrequests.size());
     }
     
     public void clearRequest(long id){
         callwaitercontroller.clearRequest(id);
-         setListofrequests(callwaitercontroller.GetRestaurantWaiterRequests());
+        listofrequests  = callwaitercontroller.GetRestaurantWaiterRequests();
     }
 
     /**
@@ -59,6 +60,13 @@ private CallWaiterControllerLocal callwaitercontroller;
      */
     public void setListofrequests(List<CallWaiter> listofrequests) {
         this.listofrequests = listofrequests;
+    }
+    
+    public void autoRefreshRequest(){
+        
+        //Updating table automatically
+    //    listofrequests  = callwaitercontroller.GetRestaurantWaiterRequests();
+        System.out.println("********** TABLE REFRESHED!");
     }
     
 }
