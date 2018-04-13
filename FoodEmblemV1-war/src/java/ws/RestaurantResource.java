@@ -137,6 +137,22 @@ public class RestaurantResource {
         }
     }
     
+    @GET
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("updateSeatingPax/{rerid}/{pax}")
+    public Response updateSeatingPax(@PathParam("rerid") long reservationId, @PathParam("pax") int pax){
+        try {
+            restaurantSeatingControllerLocal.updateSeatingPax(reservationId, pax);
+            System.out.print(pax + " person has joined in reservation ID " + reservationId);
+            return Response.status(Response.Status.OK).build();
+        }
+        catch (Exception ex){
+            System.out.println(ex.toString());
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+    }
+    
     /**
      * PUT method for updating or creating an instance of RestaurantResource
      * @param content representation for the resource

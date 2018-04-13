@@ -15,4 +15,5 @@ public interface RestaurantSeatingControllerLocal {
     public RestaurantSeating retrieveAllocatedSeat(int restid, int pax);
     public List<Integer> retrieveActiveSeatsByRestaurantId(long restaurantId);
     public long retrieveCountAllSeating(long restaurantId);
+    public void updateSeatingPax(long reservationId ,int pax);
 }

@@ -5,6 +5,7 @@
  */
 package ejb.session.stateless;
 
+import entity.Reservation;
 import entity.Restaurant;
 import entity.RestaurantSeating;
 import java.util.ArrayList;
@@ -108,5 +109,15 @@ public class RestaurantSeatingController implements RestaurantSeatingControllerR
         Query query = em.createQuery("SELECT count(rs.id) FROM Restaurant r JOIN r.sensors s JOIN s.restaurantSeating rs WHERE r.id =:restaurantId");
         query.setParameter("restaurantId", restaurantId);
         return (long)query.getSingleResult();
+    }
+    
+    @Override
+    public void updateSeatingPax(long reservationId ,int pax){
+        Query q = em.createQuery("SELECT rer FROM Restaurant res JOIN res.sensors s JOIN s.restaurantSeating rs JOIN rs.reservations rer"
+                + " WHERE rer.id = :rerid");
+        q.setParameter("rerid", reservationId);
+        Reservation rer = (Reservation)q.getSingleResult();
+        rer.setNoOfPaxSeated(rer.getNoOfPaxSeated() + pax);
+        em.merge(rer);
     }
 }
