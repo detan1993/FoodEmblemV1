@@ -66,8 +66,10 @@ CustomerEntityControllerLocal customerentitycontroller = lookupCustomerEntityCon
         try {
         List<Reservation>customerreservations = reservationController.getCustomerReservations(email,status);
         List<String>restNames = reservationController.getRestaurantNameFromReservation(customerreservations);
-         System.out.println("********** Calling retrieveReservation method. List size for " + email + " is " + customerreservations.size());
-     
+        System.out.println("********** Calling retrieveReservation method. List size for " + email + " is " + customerreservations.size());
+          for (int i = 0; i < customerreservations.size(); i++){
+           customerreservations.get(i).setRestCustOrders(null);
+        }
          return Response.status(Response.Status.OK).entity(new RetrieveCustomerReservationsRsp(customerreservations,restNames)).build();
         } 
         catch (Exception ex){

@@ -64,12 +64,13 @@ public class ReservationController implements ReservationControllerRemote, Reser
         List<Reservation> reservationList = new ArrayList();
         Query query = em.createQuery("SELECT c FROM Customer c WHERE c.email =:email");
         query.setParameter("email", customerEmail);
-        try {
+        try { 
 
             Customer c = (Customer) query.getSingleResult();
             for (int i = 0; i < c.getReservations().size(); i++) {
                 if (c.getReservations().get(i).getStatus().equals(status)) {
-                    reservationList.add(c.getReservations().get(i));
+                    Reservation r = c.getReservations().get(i);
+                    reservationList.add(r);
                 }
 
             }

@@ -60,7 +60,12 @@ public class RestaurantResource {
         try
         {
             System.out.println("********** retrieving restaurnt ********");
-            return Response.status(Response.Status.OK).entity(new RetrieveRestaurantsRsp(restaurantController.retrieveRestaurant())).build();
+            List<Restaurant> rslist = restaurantController.retrieveRestaurant();
+        for (Restaurant rest: rslist){
+             rest.setSensors(null);
+             rest.setRestEmployee(null);
+             }
+            return Response.status(Response.Status.OK).entity(new RetrieveRestaurantsRsp(rslist)).build();
  
         }
         catch(Exception ex)

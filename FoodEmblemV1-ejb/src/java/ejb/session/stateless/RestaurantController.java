@@ -49,10 +49,6 @@ public class RestaurantController implements RestaurantControllerRemote, Restaur
       System.out.println("Calling");
       Query query = em.createQuery("SELECT r FROM Restaurant r");
       List<Restaurant>rslist = query.getResultList();
-      for (Restaurant rest: rslist){
-          em.detach(rest.getSensors());
-          em.detach(rest.getRestEmployee());
-      }
       return rslist;
         
     }
