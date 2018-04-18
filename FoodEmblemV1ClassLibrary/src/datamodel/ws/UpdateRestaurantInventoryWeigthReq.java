@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
 @XmlType(name = "updateRestaurantInventoryWeigthReq", propOrder = {
-   "restaurantId" , "containerId" , "inventory"
+   "restaurantId" , "containerId" , "inventoryWeight"
 })
 
 public class UpdateRestaurantInventoryWeigthReq  implements Serializable  {
@@ -26,15 +26,16 @@ public class UpdateRestaurantInventoryWeigthReq  implements Serializable  {
     
     private long restaurantId;
     private long containerId;
-    private Inventory inventory;
+  //  private Inventory inventory;
+    private double inventoryWeight;
 
     public UpdateRestaurantInventoryWeigthReq() {
     }
 
-    public UpdateRestaurantInventoryWeigthReq(long restaurantId, long containerId, Inventory inventory) {
+    public UpdateRestaurantInventoryWeigthReq(long restaurantId, long containerId, double inventoryWeight) {
         this.restaurantId = restaurantId;
         this.containerId = containerId;
-        this.inventory = inventory;
+        this.inventoryWeight = inventoryWeight;
     }
     
     
@@ -68,19 +69,17 @@ public class UpdateRestaurantInventoryWeigthReq  implements Serializable  {
     }
 
     /**
-     * @return the inventory
+     * @return the inventoryWeight
      */
-    public Inventory getInventory() {
-        return inventory;
+    public double getInventoryWeight() {
+        return inventoryWeight;
     }
 
     /**
-     * @param inventory the inventory to set
+     * @param inventoryWeight the inventoryWeight to set
      */
-    public void setInventory(Inventory inventory) {
-        this.inventory = inventory;
+    public void setInventoryWeight(double inventoryWeight) {
+        this.inventoryWeight = inventoryWeight;
     }
-    
-    
-    
+     
 }

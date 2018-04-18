@@ -65,7 +65,7 @@ private CallWaiterControllerLocal callwaitercontroller;
     public void autoRefreshRequest(){
         
         //Updating table automatically
-    //    listofrequests  = callwaitercontroller.GetRestaurantWaiterRequests();
+        listofrequests  = callwaitercontroller.GetRestaurantWaiterRequests();
         System.out.println("********** TABLE REFRESHED!");
     }
     

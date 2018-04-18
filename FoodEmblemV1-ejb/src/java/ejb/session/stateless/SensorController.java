@@ -83,7 +83,33 @@ public class SensorController implements SensorControllerRemote, SensorControlle
 
     }
 
+    // container ID can uniquely identify the inventory inside the ID. 
+    //1 container ID only have 1 inventory object, so we can pass the weight directly without having a need to pass Inventory Project.
+    
     @Override
+    public void updateContainerInventoryWeight(Long restaurantId, Long containerId, double newInventoryWeight){
+        
+      System.out.println("**************** inside update inventory weight");
+        List<Sensor> restSensors = retrieveSensor(restaurantId);
+        for (Sensor s : restSensors) {
+            Container c = s.getContainer();
+            if (c != null) {
+
+                System.out.println("container ID is  " + c.getId());
+                if (c.getId() == containerId) {
+
+                    Inventory inventoryToUpdate = c.getInventory();
+                    inventoryToUpdate.setWeight(newInventoryWeight);
+                                    //s.getFridge().setTemperature(tempVl);
+                    em.flush();
+                    break;
+                }
+            }
+        }
+               
+    }
+    
+   /* @Override
     public void updateContainerInventoryWeight(Long restaurantId, Long containerId, Inventory inventory) {
 
         System.out.println("**************** inside update inventory weight");
@@ -110,7 +136,7 @@ public class SensorController implements SensorControllerRemote, SensorControlle
             }
         }
 
-    }
+    }*/
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
 

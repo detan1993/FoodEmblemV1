@@ -211,10 +211,10 @@ public class SensorResource {
         {
             try
             {
-                System.err.println("********** update Restaurant weight");
                 UpdateRestaurantInventoryWeigthReq request = jaxbUpdateWeightReq.getValue();
-                
-                sensorController.updateContainerInventoryWeight(request.getRestaurantId(), request.getContainerId(), request.getInventory());
+                System.err.println("********** update Restaurant ID = " + request.getContainerId() + "container ID = " + request.getContainerId() + " weight = " + request.getInventoryWeight() );
+                 
+                sensorController.updateContainerInventoryWeight(request.getRestaurantId(), request.getContainerId(), request.getInventoryWeight());
                         
                 return Response.status(Response.Status.OK).build();
             }
