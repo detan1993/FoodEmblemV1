@@ -60,6 +60,20 @@ public class RestaurantController implements RestaurantControllerRemote, Restaur
         return (Restaurant)q.getSingleResult();
     }
     
+    @Override
+    public List<String>getRestaurantByAPIKey(String apikey){
+        Query q = em.createQuery("SELECT r FROM Restaurant r WHERE r.apiKey = :key");
+        q.setParameter("key", apikey);
+        List<String> li = new ArrayList<>();
+        Restaurant r = (Restaurant)q.getSingleResult();
+        li.add(r.getAddress());
+        li.add(r.getContactNo());
+        li.add(r.getEmail());
+        li.add(r.getPostalCode());
+        li.add(r.getName());
+        return li;
+    }
+    
      @Override
      public List<OrderDish>retrieveCustomerOrders(long restaurantId){
          Query q = em.createQuery("SELECT od FROM Restaurant r JOIN r.sensors s JOIN s.restaurantSeating rs JOIN rs.reservations rer JOIN rer.restCustOrders co JOIN co.orderDishes od  WHERE r.id = :restid AND rer.status = :status AND co.isCooked = :orderstatus ORDER BY od.orderId");

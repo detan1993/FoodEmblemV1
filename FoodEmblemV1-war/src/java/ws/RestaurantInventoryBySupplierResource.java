@@ -5,8 +5,10 @@
  */
 package ws;
 
+import datamodel.ws.RetrieveEmployeeAccountRsp;
 import datamodel.ws.RetrieveRestaurantInvenotoriesReq;
 import datamodel.ws.RetrieveRestaurantInventoriesRsp;
+import datamodel.ws.RetrieveSupplierRestaurant;
 import ejb.session.stateless.ReservationControllerLocal;
 import ejb.session.stateless.RestaurantControllerLocal;
 import entity.Restaurant;
@@ -19,8 +21,10 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.xml.bind.JAXBElement;
@@ -43,6 +47,33 @@ public class RestaurantInventoryBySupplierResource {
     /**
      * Creates a new instance of RestaurantInventoryBySupplierResource
      */
+    
+    @GET
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("getRestaurantByAPIKey/{apikey}")
+    public Response getRestaurantByAPIKey(@PathParam("apikey") String apikey)
+    {
+        try
+        {
+             List<String> restDetails = restaurantController.getRestaurantByAPIKey(apikey);
+             
+             if(restDetails != null){
+                  return Response.status(Response.Status.OK).entity(new RetrieveSupplierRestaurant(restDetails)).build();
+             }        
+             else {
+                 return Response.status(Response.Status.BAD_REQUEST).entity(new RetrieveSupplierRestaurant()).build();
+             }
+ 
+        }
+        catch(Exception ex) 
+        {
+            System.err.println(ex.getMessage());
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new RetrieveSupplierRestaurant()).build();
+        }
+    }
+    
+    
     public RestaurantInventoryBySupplierResource() {
     }
     
