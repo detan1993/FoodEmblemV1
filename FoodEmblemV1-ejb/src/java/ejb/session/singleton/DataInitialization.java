@@ -152,8 +152,8 @@ public class DataInitialization {
       RestaurantSeating newSeat2 = restaurantSeatingControllerLocal.createNewSeating(new RestaurantSeating("No 2" , 4));    
       
       //creating restaurant Fridge
-      Fridge newFridge =   fridgeControllerLocal.createFridge(new Fridge(0.0 , 0.0));
-      Fridge newFridge2 =   fridgeControllerLocal.createFridge(new Fridge(0.0 , 0.0));
+      Fridge newFridge =   fridgeControllerLocal.createFridge(new Fridge(0.0 , 10.0));
+      Fridge newFridge2 =   fridgeControllerLocal.createFridge(new Fridge(0.0 , 10.0));
       
       Inventory newInventory1 = inventoryControllerLocal.createInventory(new Inventory("Salmon" , 0.20 , 5.0));
       Inventory newInventory2 = inventoryControllerLocal.createInventory(new Inventory("Cabbage" , 0.30, 5.0));
