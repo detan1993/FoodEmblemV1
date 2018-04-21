@@ -29,7 +29,7 @@ public class Container implements Serializable {
     @OneToOne
     private Inventory inventory;
     
-    @OneToOne(mappedBy="container")
+    //@OneToOne(mappedBy="container")
     private Sensor sensor;
 
     public Container() {

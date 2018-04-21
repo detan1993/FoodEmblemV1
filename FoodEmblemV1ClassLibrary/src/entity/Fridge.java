@@ -26,7 +26,7 @@ public class Fridge implements Serializable {
     
     private double temperature;
     private double threshold;
-    @OneToOne(mappedBy="fridge")
+    //@OneToOne(mappedBy="fridge")
     private Sensor sensor;
 
     public Fridge() {
