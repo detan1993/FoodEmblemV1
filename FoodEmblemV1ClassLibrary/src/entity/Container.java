@@ -30,7 +30,7 @@ public class Container implements Serializable {
     private Inventory inventory;
     
     //@OneToOne(mappedBy="container")
-    private Sensor sensor;
+   // private Sensor sensor;
 
     public Container() {
     }
@@ -40,13 +40,6 @@ public class Container implements Serializable {
         this.inventory = inventory;
     }
    
-
-    public Container(double weight, Inventory inventory, Sensor sensor) {
-        this.weight = weight;
-        this.inventory = inventory;
-        this.sensor = sensor;
-    }
-    
 
     public Long getId() {
         return id;
@@ -79,20 +72,6 @@ public class Container implements Serializable {
     @Override
     public String toString() {
         return "entity.Container[ id=" + id + " ]";
-    }
-
-    /**
-     * @return the sensor
-     */
-    public Sensor getSensor() {
-        return sensor;
-    }
-
-    /**
-     * @param sensor the sensor to set
-     */
-    public void setSensor(Sensor sensor) {
-        this.sensor = sensor;
     }
 
     /**

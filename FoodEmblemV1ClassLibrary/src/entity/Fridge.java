@@ -27,7 +27,7 @@ public class Fridge implements Serializable {
     private double temperature;
     private double threshold;
     //@OneToOne(mappedBy="fridge")
-    private Sensor sensor;
+   // private Sensor sensor;
 
     public Fridge() {
     }
@@ -39,16 +39,6 @@ public class Fridge implements Serializable {
 
     }
 
-    
-
-    public Fridge(double temperature, double threshold, Sensor sensor) {
-        this.temperature = temperature;
-        this.threshold = threshold;
-        this.sensor = sensor;
-    }
-
-    
-    
     
     public Long getId() {
         return id;
@@ -110,19 +100,5 @@ public class Fridge implements Serializable {
     public void setThreshold(double threshold) {
         this.threshold = threshold;
     }
-
-    /**
-     * @return the sensor
-     */
-    public Sensor getSensor() {
-        return sensor;
-    }
-
-    /**
-     * @param sensor the sensor to set
-     */
-    public void setSensor(Sensor sensor) {
-        this.sensor = sensor;
-    }
-    
+  
 }

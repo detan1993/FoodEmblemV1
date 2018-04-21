@@ -29,6 +29,7 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
+        resources.add(debugmapper.DebugExceptionMapper.class);
         resources.add(ws.CORSFilter.class);
         resources.add(ws.CallWaiterResource.class);
         resources.add(ws.CustomerReservationResource.class);

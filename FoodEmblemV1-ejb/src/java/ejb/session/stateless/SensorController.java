@@ -144,8 +144,12 @@ public class SensorController implements SensorControllerRemote, SensorControlle
       
     @Override
      public List<Sensor> retrieveFridgeSensor(long restaurantId) {
+         
+        try {
         System.out.println("retrieve Sensor by restaurantId = " + restaurantId);
         Query query = em.createQuery("SELECT r FROM Restaurant r WHERE r.id = :restaurantId");
+       // Query querys = em.createQuery("SELECT r FROM Restaurant r WHERE r.sensors = :restaurantId");
+    
         query.setParameter("restaurantId", restaurantId);
         Restaurant rest = ((Restaurant) query.getSingleResult());
 
@@ -158,7 +162,7 @@ public class SensorController implements SensorControllerRemote, SensorControlle
                 fridgeSensor.add(s);
         }
         
-        try {
+      
             if(!fridgeSensor.isEmpty())
             System.out.println("Try Sensor= " + fridgeSensor.get(0).getSensorId());
             
